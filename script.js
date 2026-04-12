@@ -33,333 +33,428 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const images = [
-        "WhatsApp Image 2026-03-27 at 2.31.10 PM.jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.11 PM (1).jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.11 PM (2).jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.11 PM.jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.12 PM (1).jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.12 PM (2).jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.12 PM.jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.13 PM (1).jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.13 PM (2).jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.13 PM.jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.14 PM (1).jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.14 PM (2).jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.14 PM.jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.15 PM (1).jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.15 PM (2).jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.15 PM.jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.16 PM (1).jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.16 PM (2).jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.16 PM (3).jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.16 PM.jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.17 PM (1).jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.17 PM.jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.18 PM (1).jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.18 PM (2).jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.18 PM.jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.19 PM (1).jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.19 PM (2).jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.19 PM.jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.20 PM (1).jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.20 PM (2).jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.20 PM.jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.21 PM (1).jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.21 PM (2).jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.21 PM.jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.22 PM (1).jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.22 PM (2).jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.23 PM (1).jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.23 PM (2).jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.23 PM.jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.24 PM (1).jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.24 PM (2).jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.24 PM.jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.25 PM (1).jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.25 PM (2).jpeg",
-        "WhatsApp Image 2026-03-27 at 2.31.25 PM.jpeg"
+        "21st-anniversary-photo-film-strip-cake.jpg",
+        "42nd-anniversary-pink-butterfly-cake.jpg",
+        "50th-anniversary-butterfly-cake.jpg",
+        "baby-bottle-1st-birthday-cake.jpg",
+        "blue-purple-rosette-birthday-girl-cake.jpg",
+        "blueberry-compote-round-cake.jpg",
+        "chai-lovers-samosa-cake.jpg",
+        "chocolate-glaze-heart-cake.jpg",
+        "chocolate-overload-happy-holi-cake.jpg",
+        "classic-chocolate-truffle-cake.jpg",
+        "crime-scene-investigation-cake.jpg",
+        "cute-animal-face-kids-cake.jpg",
+        "cute-lion-face-kids-cake.jpg",
+        "cute-smiling-face-bento-cake.jpg",
+        "elegant-golden-sphere-frill-cake.jpg",
+        "elegant-red-rose-white-cake.jpg",
+        "elegant-red-silver-ornament-anniversary-cake.jpg",
+        "floral-tri-cake-setup-with-photos.jpg",
+        "glowing-floral-engagement-cake.jpg",
+        "gold-accented-buttercream-rose-cake.jpg",
+        "heart-shaped-chocolate-birthday-cake-alt.jpg",
+        "heart-shaped-chocolate-birthday-cake.jpg",
+        "heartbeat-ekg-medical-cake.jpg",
+        "illuminated-anniversary-cake-setup.jpg",
+        "indian-kitchen-theme-birthday-cake.jpg",
+        "kite-festival-bonfire-cake.jpg",
+        "lavender-floral-swirl-cake.jpg",
+        "lohri-festival-harvest-cake.jpg",
+        "midnight-clock-new-year-cake.jpg",
+        "outer-space-astronaut-birthday-cake.jpg",
+        "papas-shirt-and-tie-cake.jpg",
+        "pink-makeup-theme-birthday-cake.jpg",
+        "pink-purple-floral-butterfly-cake.jpg",
+        "pink-rose-cascading-chocolate-cake.jpg",
+        "pizza-slice-illusion-cake.jpg",
+        "premium-chocolate-swirl-cake.jpg",
+        "pretty-in-pink-girl-cake.jpg",
+        "red-green-christmas-tree-cake.jpg",
+        "red-jelly-heart-golden-sphere-cake.jpg",
+        "red-mini-cake-black-hearts.jpg",
+        "red-mirror-glaze-heart-cake.jpg",
+        "red-velvet-heart-cake.jpg",
+        "relaxing-65th-birthday-recliner-cake-alt.jpg",
+        "relaxing-65th-birthday-recliner-cake.jpg",
+        "romantic-love-you-bunting-cake.jpg",
+        "romantic-red-rose-love-cake.jpg",
+        "teal-face-character-cake.jpg",
+        "tic-tac-toe-best-husband-cake.jpg",
+        "valentines-day-rose-pot-cake.jpg",
+        "white-ribbon-heart-cake.jpg",
+        "white-swirl-rose-anniversary-cake.jpg",
+        "worlds-best-sister-cake.jpg"
     ];
 
     const cakeCatalog = [
         {
-            title: 'Golden Mane Sprinkle Dream',
-            description: 'Blue cream base with piped lion face topper, yellow mane dollops, multicolored sprinkles and gold sugar balls on a golden board.',
-            category: 'Kids'
-        },
-
-        {
-            title: 'Stellar Midnight Wishes',
-            description: 'Glossy dark chocolate finish with gold numeral toppers, floating star wires and gold happy new accents for a New Year party.',
-            category: 'Celebration'
+            "title": "Film Strip Memories Cake",
+            "description": "A sentimental 21st-anniversary cake featuring a photographic film strip design.",
+            "category": "Anniversary",
+            "fileName": "21st-anniversary-photo-film-strip-cake.jpg"
         },
         {
-            title: 'Enchanted Rose Garden',
-            description: 'Smooth white cream with piped red roses, gold beads and a central happy birthday plaque.',
-            category: 'Birthday'
+            "title": "Pink Butterfly Anniversary Delight",
+            "description": "Elegant pink butterflies flutter across this charming 42nd-anniversary creation.",
+            "category": "Anniversary",
+            "fileName": "42nd-anniversary-pink-butterfly-cake.jpg"
         },
         {
-            title: 'Crown of Love & Light',
-            description: 'White frosted cake with red heart accents, ribbon bows and a gold crown happy birthday topper.',
-            category: 'Birthday'
+            "title": "Golden Jubilee Butterfly Cake",
+            "description": "Celebrate a 50th milestone with graceful butterflies and shimmering accents.",
+            "category": "Anniversary",
+            "fileName": "50th-anniversary-butterfly-cake.jpg"
         },
         {
-            title: 'Pulse of Devotion',
-            description: 'White frosted round cake with black ECG piping ending in a red heart, finished with edge sprinkles.',
-            category: 'Romantic'
+            "title": "Baby's First Bottle Cake",
+            "description": "An adorable baby bottle-themed cake, perfect for a little one's 1st birthday.",
+            "category": "Birthday",
+            "fileName": "baby-bottle-1st-birthday-cake.jpg"
         },
         {
-            title: 'Joyful Blush & Pearls',
-            description: 'Cartoon face design with piped hair, pearl accents and rosy cheeks for a playful look.',
-            category: 'Kids'
+            "title": "Blue & Purple Rosette Dream",
+            "description": "Vibrant blue and purple buttercream rosettes cover this stunning birthday treat.",
+            "category": "Birthday",
+            "fileName": "blue-purple-rosette-birthday-girl-cake.jpg"
         },
         {
-            title: 'Merry Swirl of Evergreen',
-            description: 'Red frosted cake topped with green piped tree swirls, candy lights and Merry Christmas lettering.',
-            category: 'Christmas'
+            "title": "Blueberry Compote Round Cake",
+            "description": "A classic round cake topped with a luscious, homemade blueberry compote.",
+            "category": "Specialty",
+            "fileName": "blueberry-compote-round-cake.jpg"
         },
         {
-            title: 'Petals in Flight',
-            description: 'Pink-to-white gradient cream with piped flowers, chocolate shards and a butterfly happy birthday topper.',
-            category: 'Birthday'
+            "title": "The Chai & Samosa Special",
+            "description": "A quirky and delicious tribute to the ultimate Indian snack pairing.",
+            "category": "Specialty",
+            "fileName": "chai-lovers-samosa-cake.jpg"
         },
         {
-            title: 'Jeweled Heart Glow',
-            description: 'White frosted cake with a glossy red jelly heart center, piped cream border and gold balloon style spheres.',
-            category: 'Romantic'
+            "title": "Decadent Chocolate Heart",
+            "description": "A rich, velvety chocolate cake glazed to perfection in a classic heart shape.",
+            "category": "Specialty",
+            "fileName": "chocolate-glaze-heart-cake.jpg"
         },
         {
-            title: 'Golden Dreams in Ruffles',
-            description: 'White ruffled piping with metallic gold hearts and beads for an elegant celebration finish.',
-            category: 'Designer'
+            "title": "Holi Chocolate Overload",
+            "description": "Celebrate the festival of colors with this chocolatey burst of joy.",
+            "category": "Festive",
+            "fileName": "chocolate-overload-happy-holi-cake.jpg"
         },
         {
-            title: 'Blooming Coral Paradise',
-            description: 'Single-tier cake covered in coral, lavender and white cream flowers with gold accents and edible pearls.',
-            category: 'Designer'
+            "title": "Classic Chocolate Truffle",
+            "description": "Deep, dark, and utterly divine—the gold standard for chocolate lovers.",
+            "category": "Specialty",
+            "fileName": "classic-chocolate-truffle-cake.jpg"
         },
         {
-            title: 'Dad\'s Dapper Delight',
-            description: 'Square cake styled as a shirt with fondant collar and polka-dot tie, with PAPA lettering and birthday topper.',
-            category: 'Personalized'
+            "title": "CSI: Crime Scene Mystery",
+            "description": "A thrilling and detailed crime scene-themed cake for the ultimate mystery fan.",
+            "category": "Specialty",
+            "fileName": "crime-scene-investigation-cake.jpg"
         },
         {
-            title: 'Velvet Chocolate Symphony',
-            description: 'Glossy dark chocolate glaze with chocolate swirls, cream dollops, gold sprinkles and heart-shaped chocolate pieces.',
-            category: 'Chocolate'
+            "title": "Whimsical Animal Friends",
+            "description": "An adorable animal-faced cake that brings a touch of magic to any kids' party.",
+            "category": "Birthday",
+            "fileName": "cute-animal-face-kids-cake.jpg"
         },
         {
-            title: 'Lavender\'s Whispered Dreams',
-            description: 'Soft lavender center with white edges, piped purple flowers, green leaves and scattered gold beads.',
-            category: 'Designer'
+            "title": "Little Lion King Cake",
+            "description": "Roar into the party with this cute and courageous lion-faced birthday cake.",
+            "category": "Birthday",
+            "fileName": "cute-lion-face-kids-cake.jpg"
         },
         {
-            title: 'Royal Princess Whimsy',
-            description: 'Pink bow focal point, fondant girl figure, butterflies and floral accents for a whimsical birthday design.',
-            category: 'Kids'
+            "title": "Happy Smiles Bento Cake",
+            "description": "A tiny, adorable bento cake featuring a bright and cheerful smiling face.",
+            "category": "Specialty",
+            "fileName": "cute-smiling-face-bento-cake.jpg"
         },
         {
-            title: 'Forever Begins Here',
-            description: 'Two-tier design decorated with flowers, butterflies and a glowing heart ring topper reading engaged.',
-            category: 'Engagement'
+            "title": "Golden Sphere Frill Elegance",
+            "description": "Sophisticated frills meet striking golden spheres in this designer masterpiece.",
+            "category": "Specialty",
+            "fileName": "elegant-golden-sphere-frill-cake.jpg"
         },
         {
-            title: 'Nani\'s Colorful Portrait',
-            description: 'Teal frosted cake with cartoon face, glasses, colorful accents and NANI lettering in fondant.',
-            category: 'Personalized'
+            "title": "Crimson Rose White Cake",
+            "description": "A timeless combination of pure white frosting and elegant red roses.",
+            "category": "Anniversary",
+            "fileName": "elegant-red-rose-white-cake.jpg"
         },
         {
-            title: 'Mystery Solver\'s Sweet Case',
-            description: 'Themed novelty cake with police line strip, magnifying glass, edible eyes and dramatic red shard detail.',
-            category: 'Themed/Novelty'
+            "title": "Red & Silver Ornament Cake",
+            "description": "Celebrate your anniversary with this stunning red and silver accented design.",
+            "category": "Anniversary",
+            "fileName": "elegant-red-silver-ornament-anniversary-cake.jpg"
         },
         {
-            title: 'Pearl & Rose Forever',
-            description: 'White frosted cake with delicate pearls, two red roses and a golden Happy Anniversary topper.',
-            category: 'Anniversary'
+            "title": "Triple Floral Photo Display",
+            "description": "A grand three-cake setup featuring beautiful flowers and personalized photos.",
+            "category": "Specialty",
+            "fileName": "floral-tri-cake-setup-with-photos.jpg"
         },
         {
-            title: 'Campfire Victory Feast',
-            description: 'Blue frosted cake with flame piping, chocolate campfire, treasure details and game-inspired toppers.',
-            category: 'Gaming/Kids'
+            "title": "Radiant Floral Engagement",
+            "description": "A breathtaking engagement cake with a soft glow and delicate floral accents.",
+            "category": "Anniversary",
+            "fileName": "glowing-floral-engagement-cake.jpg"
         },
         {
-            title: 'Cozy Chai Comfort',
-            description: 'Beige frosted cake with drip, miniature samosas, biscuits and printed chai themed toppers.',
-            category: 'Themed/Cultural'
+            "title": "Golden Buttercream Roses",
+            "description": "Luxurious gold-accented roses made of silky smooth buttercream.",
+            "category": "Anniversary",
+            "fileName": "gold-accented-buttercream-rose-cake.jpg"
         },
         {
-            title: 'Love Wins Every Time',
-            description: 'White cake with a tic-tac-toe grid, bold husband lettering and red heart decorations.',
-            category: 'Romantic'
+            "title": "Heartfelt Chocolate Birthday",
+            "description": "Show your love with this rich, heart-shaped chocolate birthday cake.",
+            "category": "Birthday",
+            "fileName": "heart-shaped-chocolate-birthday-cake-alt.jpg"
         },
         {
-            title: 'Stories in Full Bloom',
-            description: 'Multi-tier fondant cake with floral elements, photo blocks and a gold Happy Birthday topper.',
-            category: 'Designer'
+            "title": "Classic Heart Chocolate",
+            "description": "The perfect chocolate heart for a sweet and simple birthday celebration.",
+            "category": "Birthday",
+            "fileName": "heart-shaped-chocolate-birthday-cake.jpg"
         },
         {
-            title: 'Rainbow\'s Vibrant Celebration',
-            description: 'Square cake topped with colorful candies, chocolate lines, cookies and a Happy Holi topper.',
-            category: 'Festival'
+            "title": "Vitality EKG Medical Cake",
+            "description": "A unique heartbeat-themed cake for the dedicated medical professional.",
+            "category": "Specialty",
+            "fileName": "heartbeat-ekg-medical-cake.jpg"
         },
         {
-            title: 'Crimson Heart\'s Reflection',
-            description: 'Heart-shaped cake with mirror red glaze and a white piped border on a golden board.',
-            category: 'Romantic'
+            "title": "Luminous Anniversary Setup",
+            "description": "An extraordinary illuminated display to make your anniversary magical.",
+            "category": "Anniversary",
+            "fileName": "illuminated-anniversary-cake-setup.jpg"
         },
         {
-            title: 'Cheeky Plate of Sweetness',
-            description: 'Playful novelty cake designed like a spaghetti plate with fondant noodles, toppings and sauces.',
-            category: 'Themed/Novelty'
+            "title": "Desi Kitchen Birthday",
+            "description": "A creative and detailed cake honoring the heart of every Indian home.",
+            "category": "Birthday",
+            "fileName": "indian-kitchen-theme-birthday-cake.jpg"
         },
         {
-            title: 'Velvet Romance Classic',
-            description: 'Heart-shaped red velvet crumb finish with soft white frosting border for a classic romantic look.',
-            category: 'Romantic'
+            "title": "Makar Sankranti Kite Cake",
+            "description": "Soar high with this colorful kite and bonfire-themed festive creation.",
+            "category": "Festive",
+            "fileName": "kite-festival-bonfire-cake.jpg"
         },
         {
-            title: 'One Year\'s Sweet Milestone',
-            description: 'Mini bottle-shaped cake in white and blue fondant with a pink top and red number 1.',
-            category: 'Kids'
+            "title": "Lavender Swirl Garden",
+            "description": "Soft lavender swirls and delicate flowers for a touch of garden elegance.",
+            "category": "Specialty",
+            "fileName": "lavender-floral-swirl-cake.jpg"
         },
         {
-            title: 'Passionate Scarlet Gem',
-            description: 'Red frosted cake with black heart motifs and golden heart toppers for a romantic gifting style.',
-            category: 'Romantic'
+            "title": "Lohri Harvest Celebration",
+            "description": "Warm up your Lohri celebrations with this vibrant harvest-themed cake.",
+            "category": "Festive",
+            "fileName": "lohri-festival-harvest-cake.jpg"
         },
         {
-            title: 'Love Planted Deep',
-            description: 'Cylindrical cake styled as a flower pot with chocolate soil effect and Valentine decor.',
-            category: 'Romantic'
+            "title": "New Year's Countdown",
+            "description": "Ring in the New Year with this elegant midnight clock celebration cake.",
+            "category": "Festive",
+            "fileName": "midnight-clock-new-year-cake.jpg"
         },
         {
-            title: 'Sweet Testament',
-            description: 'Glossy chocolate cake with red hearts, cream swirls, chocolate shavings and custom name detailing.',
-            category: 'Personalized'
+            "title": "Out-Of-This-World Astronaut",
+            "description": "An interstellar adventure for your little space explorer's big day.",
+            "category": "Birthday",
+            "fileName": "outer-space-astronaut-birthday-cake.jpg"
         },
         {
-            title: 'Two Hearts\' Silhouette',
-            description: 'Light-frosted cake with a couple silhouette topper and a love you banner.',
-            category: 'Romantic'
+            "title": "Dapper Dad's Shirt Cake",
+            "description": "A stylish shirt-and-tie cake, perfect for celebrating the best dad.",
+            "category": "Specialty",
+            "fileName": "papas-shirt-and-tie-cake.jpg"
         },
         {
-            title: 'Sister Bond Forever',
-            description: 'Beige celebration cake with sister-themed fondant figures, hearts and a custom message.',
-            category: 'Personalized'
+            "title": "Glamour & Glitz Makeup Cake",
+            "description": "A fabulous cake for the fashionista who loves all things beauty.",
+            "category": "Birthday",
+            "fileName": "pink-makeup-theme-birthday-cake.jpg"
         },
         {
-            title: 'Sparkling Silver Celebration',
-            description: 'Tall white anniversary cake with red and silver spheres, mirror-ball accents and a golden topper.',
-            category: 'Anniversary'
+            "title": "Pastel Butterfly Garden",
+            "description": "A whimsical blend of pink and purple flowers with fluttering butterflies.",
+            "category": "Birthday",
+            "fileName": "pink-purple-floral-butterfly-cake.jpg"
         },
         {
-            title: 'Berry Jewel Crown',
-            description: 'White cake with piped blue frosting edges, glossy dark berry center and scattered silver dragees.',
-            category: 'Fruit-based'
+            "title": "Cascading Pink Rose Chocolate",
+            "description": "Rich chocolate meets the delicate beauty of cascading pink roses.",
+            "category": "Specialty",
+            "fileName": "pink-rose-cascading-chocolate-cake.jpg"
         },
         {
-            title: 'Golden Years Comfort',
-            description: 'Grey frosted scene cake featuring a fondant recliner figure and custom 65 birthday elements.',
-            category: 'Personalized'
+            "title": "Pizza Party Illusion Cake",
+            "description": "It looks like a pizza, but it tastes like a sweet, delicious dream!",
+            "category": "Specialty",
+            "fileName": "pizza-slice-illusion-cake.jpg"
         },
         {
-            title: 'Pearl Swirl Magic',
-            description: 'Blue-purple swirled cream with pearl accents, Birthday Girl topper and name styling.',
-            category: 'Birthday'
+            "title": "Premium Chocolate Swirl",
+            "description": "An indulgent chocolate cake with artistic swirls of premium frosting.",
+            "category": "Specialty",
+            "fileName": "premium-chocolate-swirl-cake.jpg"
         },
         {
-            title: 'Butterfly Garden Whispers',
-            description: 'Cream sided cake with pastel floral rosettes and butterfly toppers for a soft designer look.',
-            category: 'Designer'
+            "title": "Pretty In Pink Birthday",
+            "description": "A charming and feminine cake designed for a truly special birthday girl.",
+            "category": "Birthday",
+            "fileName": "pretty-in-pink-girl-cake.jpg"
         },
         {
-            title: 'Illuminated Love Flame',
-            description: 'Heart cake with glossy chocolate top, red accents, gold beads and tall golden candle detail.',
-            category: 'Romantic'
+            "title": "Festive Christmas Tree Cake",
+            "description": "Spread holiday cheer with this beautifully decorated Christmas tree cake.",
+            "category": "Festive",
+            "fileName": "red-green-christmas-tree-cake.jpg"
         },
         {
-            title: 'Pure Chocolate Bliss',
-            description: 'Round chocolate cake with a rich glossy glaze and cocoa dusting for a bold minimalist finish.',
-            category: 'Chocolate'
+            "title": "Ruby Heart & Gold Spheres",
+            "description": "A modern masterpiece featuring a red jelly heart and golden accents.",
+            "category": "Specialty",
+            "fileName": "red-jelly-heart-golden-sphere-cake.jpg"
         },
         {
-            title: 'Golden Half-Century Wings',
-            description: 'Pastel-greenanniversary cake with piped swirls, butterfly accents and a prominent 50 topper.',
-            category: 'Anniversary'
+            "title": "Petite Crimson Hearts",
+            "description": "A cute and compact mini cake adorned with bold black hearts.",
+            "category": "Specialty",
+            "fileName": "red-mini-cake-black-hearts.jpg"
         },
         {
-            title: 'Whisker Wishes & Confetti',
-            description: 'Playful cat face design with colorful details and a bright red bow centerpiece.',
-            category: 'Kids'
+            "title": "Scarlet Mirror Glaze Heart",
+            "description": "A sleek and shiny mirror-glazed heart cake that speaks of true love.",
+            "category": "Anniversary",
+            "fileName": "red-mirror-glaze-heart-cake.jpg"
         },
         {
-            title: 'Stories of Love',
-            description: 'Multi-tier anniversary display cake with floral decor, photo story elements and number detailing.',
-            category: 'Anniversary'
+            "title": "Romantic Red Velvet Heart",
+            "description": "The classic red velvet cake in a beautiful heart shape for your love.",
+            "category": "Anniversary",
+            "fileName": "red-velvet-heart-cake.jpg"
         },
         {
-            title: 'Blooms in Pink',
-            description: 'Pink rosette styled cake with butterfly accents and a bold number topper.',
-            category: 'Anniversary'
+            "title": "The Recliner Retreat Cake",
+            "description": "Kick back and relax with this fun recliner-themed 65th birthday cake.",
+            "category": "Birthday",
+            "fileName": "relaxing-65th-birthday-recliner-cake-alt.jpg"
         },
         {
-            title: 'Glam Girl\'s Palette',
-            description: 'Square pink cake featuring fondant makeup kit elements such as lipstick, brush and palette props.',
-            category: 'Themed/Personal'
+            "title": "Golden Years Recliner Cake",
+            "description": "Celebrate a 65th birthday with this detailed and cozy recliner design.",
+            "category": "Birthday",
+            "fileName": "relaxing-65th-birthday-recliner-cake.jpg"
         },
         {
-            title: 'Garden\'s Golden Glory',
-            description: 'Single-tier designer cake with colorful fondant flowers, gold accents and a reflective base.',
-            category: 'Designer'
+            "title": "Sweet Bunting Love Cake",
+            "description": "Express your feelings with this charming 'Love You' bunting cake.",
+            "category": "Anniversary",
+            "fileName": "romantic-love-you-bunting-cake.jpg"
+        },
+        {
+            "title": "Deep Love Red Rose Cake",
+            "description": "A bouquet of edible red roses to celebrate a deep and lasting love.",
+            "category": "Anniversary",
+            "fileName": "romantic-red-rose-love-cake.jpg"
+        },
+        {
+            "title": "Funky Teal Character Cake",
+            "description": "A bold and bright teal-faced cake for a fun-filled celebration.",
+            "category": "Specialty",
+            "fileName": "teal-face-character-cake.jpg"
+        },
+        {
+            "title": "Best Husband Tic-Tac-Toe",
+            "description": "A playful and sweet game-themed cake for the world's best husband.",
+            "category": "Anniversary",
+            "fileName": "tic-tac-toe-best-husband-cake.jpg"
+        },
+        {
+            "title": "Valentine's Rose Pot Delight",
+            "description": "A unique cake shaped like a flower pot, overflowing with red roses.",
+            "category": "Festive",
+            "fileName": "valentines-day-rose-pot-cake.jpg"
+        },
+        {
+            "title": "Pure Love White Ribbon Heart",
+            "description": "An elegant white heart cake finished with a delicate ribbon detail.",
+            "category": "Anniversary",
+            "fileName": "white-ribbon-heart-cake.jpg"
+        },
+        {
+            "title": "Pristine Swirl Rose Anniversary",
+            "description": "Celebrate another year together with this classic white rose cake.",
+            "category": "Anniversary",
+            "fileName": "white-swirl-rose-anniversary-cake.jpg"
+        },
+        {
+            "title": "World's Best Sister Cake",
+            "description": "Show your sister some love with this specially designed tribute cake.",
+            "category": "Specialty",
+            "fileName": "worlds-best-sister-cake.jpg"
         }
     ];
 
     const imageToCakeTitle = {
-        "WhatsApp Image 2026-03-27 at 2.31.10 PM.jpeg": "Golden Years Comfort",
-        "WhatsApp Image 2026-03-27 at 2.31.11 PM (1).jpeg": "Pearl Swirl Magic",
-        "WhatsApp Image 2026-03-27 at 2.31.11 PM (2).jpeg": "Butterfly Garden Whispers",
-        "WhatsApp Image 2026-03-27 at 2.31.11 PM.jpeg": "Illuminated Love Flame",
-        "WhatsApp Image 2026-03-27 at 2.31.12 PM (1).jpeg": "Pure Chocolate Bliss",
-        "WhatsApp Image 2026-03-27 at 2.31.12 PM (2).jpeg": "Golden Half-Century Wings",
-        "WhatsApp Image 2026-03-27 at 2.31.12 PM.jpeg": "Whisker Wishes & Confetti",
-        "WhatsApp Image 2026-03-27 at 2.31.13 PM (1).jpeg": "Stories of Love",
-        "WhatsApp Image 2026-03-27 at 2.31.13 PM (2).jpeg": "Blooms in Pink",
-        "WhatsApp Image 2026-03-27 at 2.31.13 PM.jpeg": "Glam Girl\'s Palette",
-        "WhatsApp Image 2026-03-27 at 2.31.14 PM (1).jpeg": "Berry Jewel Crown",
-        "WhatsApp Image 2026-03-27 at 2.31.14 PM (2).jpeg": "Stories in Full Bloom",
-        "WhatsApp Image 2026-03-27 at 2.31.14 PM.jpeg": "Rainbow\'s Vibrant Celebration",
-        "WhatsApp Image 2026-03-27 at 2.31.15 PM (1).jpeg": "Crimson Heart\'s Reflection",
-        "WhatsApp Image 2026-03-27 at 2.31.15 PM (2).jpeg": "Cheeky Plate of Sweetness",
-        "WhatsApp Image 2026-03-27 at 2.31.15 PM.jpeg": "Velvet Romance Classic",
-        "WhatsApp Image 2026-03-27 at 2.31.16 PM (1).jpeg": "One Year\'s Sweet Milestone",
-        "WhatsApp Image 2026-03-27 at 2.31.16 PM (2).jpeg": "Passionate Scarlet Gem",
-        "WhatsApp Image 2026-03-27 at 2.31.16 PM (3).jpeg": "Love Planted Deep",
-        "WhatsApp Image 2026-03-27 at 2.31.16 PM.jpeg": "Sweet Testament",
-        "WhatsApp Image 2026-03-27 at 2.31.17 PM (1).jpeg": "Two Hearts\' Silhouette",
-        "WhatsApp Image 2026-03-27 at 2.31.17 PM.jpeg": "Sister Bond Forever",
-        "WhatsApp Image 2026-03-27 at 2.31.18 PM (1).jpeg": "Sparkling Silver Celebration",
-        "WhatsApp Image 2026-03-27 at 2.31.18 PM (2).jpeg": "Blooming Coral Paradise",
-        "WhatsApp Image 2026-03-27 at 2.31.18 PM.jpeg": "Dad\'s Dapper Delight",
-        "WhatsApp Image 2026-03-27 at 2.31.19 PM (1).jpeg": "Velvet Chocolate Symphony",
-        "WhatsApp Image 2026-03-27 at 2.31.19 PM (2).jpeg": "Lavender\'s Whispered Dreams",
-        "WhatsApp Image 2026-03-27 at 2.31.19 PM.jpeg": "Royal Princess Whimsy",
-        "WhatsApp Image 2026-03-27 at 2.31.20 PM (1).jpeg": "Forever Begins Here",
-        "WhatsApp Image 2026-03-27 at 2.31.20 PM (2).jpeg": "Nani\'s Colorful Portrait",
-        "WhatsApp Image 2026-03-27 at 2.31.20 PM.jpeg": "Mystery Solver\'s Sweet Case",
-        "WhatsApp Image 2026-03-27 at 2.31.21 PM (1).jpeg": "Pearl & Rose Forever",
-        "WhatsApp Image 2026-03-27 at 2.31.21 PM (2).jpeg": "Campfire Victory Feast",
-        "WhatsApp Image 2026-03-27 at 2.31.21 PM.jpeg": "Cozy Chai Comfort",
-        "WhatsApp Image 2026-03-27 at 2.31.22 PM (1).jpeg": "Love Wins Every Time",
-        "WhatsApp Image 2026-03-27 at 2.31.22 PM (2).jpeg": "Golden Mane Sprinkle Dream",
-        "WhatsApp Image 2026-03-27 at 2.31.23 PM (1).jpeg": "Stellar Midnight Wishes",
-        "WhatsApp Image 2026-03-27 at 2.31.23 PM (2).jpeg": "Enchanted Rose Garden",
-        "WhatsApp Image 2026-03-27 at 2.31.23 PM.jpeg": "Crown of Love & Light",
-        "WhatsApp Image 2026-03-27 at 2.31.24 PM (1).jpeg": "Pulse of Devotion",
-        "WhatsApp Image 2026-03-27 at 2.31.24 PM (2).jpeg": "Joyful Blush & Pearls",
-        "WhatsApp Image 2026-03-27 at 2.31.24 PM.jpeg": "Merry Swirl of Evergreen",
-        "WhatsApp Image 2026-03-27 at 2.31.25 PM (1).jpeg": "Petals in Flight",
-        "WhatsApp Image 2026-03-27 at 2.31.25 PM (2).jpeg": "Jeweled Heart Glow",
-        "WhatsApp Image 2026-03-27 at 2.31.25 PM.jpeg": "Golden Dreams in Ruffles"
+        "21st-anniversary-photo-film-strip-cake.jpg": "Film Strip Memories Cake",
+        "42nd-anniversary-pink-butterfly-cake.jpg": "Pink Butterfly Anniversary Delight",
+        "50th-anniversary-butterfly-cake.jpg": "Golden Jubilee Butterfly Cake",
+        "baby-bottle-1st-birthday-cake.jpg": "Baby's First Bottle Cake",
+        "blue-purple-rosette-birthday-girl-cake.jpg": "Blue & Purple Rosette Dream",
+        "blueberry-compote-round-cake.jpg": "Blueberry Compote Round Cake",
+        "chai-lovers-samosa-cake.jpg": "The Chai & Samosa Special",
+        "chocolate-glaze-heart-cake.jpg": "Decadent Chocolate Heart",
+        "chocolate-overload-happy-holi-cake.jpg": "Holi Chocolate Overload",
+        "classic-chocolate-truffle-cake.jpg": "Classic Chocolate Truffle",
+        "crime-scene-investigation-cake.jpg": "CSI: Crime Scene Mystery",
+        "cute-animal-face-kids-cake.jpg": "Whimsical Animal Friends",
+        "cute-lion-face-kids-cake.jpg": "Little Lion King Cake",
+        "cute-smiling-face-bento-cake.jpg": "Happy Smiles Bento Cake",
+        "elegant-golden-sphere-frill-cake.jpg": "Golden Sphere Frill Elegance",
+        "elegant-red-rose-white-cake.jpg": "Crimson Rose White Cake",
+        "elegant-red-silver-ornament-anniversary-cake.jpg": "Red & Silver Ornament Cake",
+        "floral-tri-cake-setup-with-photos.jpg": "Triple Floral Photo Display",
+        "glowing-floral-engagement-cake.jpg": "Radiant Floral Engagement",
+        "gold-accented-buttercream-rose-cake.jpg": "Golden Buttercream Roses",
+        "heart-shaped-chocolate-birthday-cake-alt.jpg": "Heartfelt Chocolate Birthday",
+        "heart-shaped-chocolate-birthday-cake.jpg": "Classic Heart Chocolate",
+        "heartbeat-ekg-medical-cake.jpg": "Vitality EKG Medical Cake",
+        "illuminated-anniversary-cake-setup.jpg": "Luminous Anniversary Setup",
+        "indian-kitchen-theme-birthday-cake.jpg": "Desi Kitchen Birthday",
+        "kite-festival-bonfire-cake.jpg": "Makar Sankranti Kite Cake",
+        "lavender-floral-swirl-cake.jpg": "Lavender Swirl Garden",
+        "lohri-festival-harvest-cake.jpg": "Lohri Harvest Celebration",
+        "midnight-clock-new-year-cake.jpg": "New Year's Countdown",
+        "outer-space-astronaut-birthday-cake.jpg": "Out-Of-This-World Astronaut",
+        "papas-shirt-and-tie-cake.jpg": "Dapper Dad's Shirt Cake",
+        "pink-makeup-theme-birthday-cake.jpg": "Glamour & Glitz Makeup Cake",
+        "pink-purple-floral-butterfly-cake.jpg": "Pastel Butterfly Garden",
+        "pink-rose-cascading-chocolate-cake.jpg": "Cascading Pink Rose Chocolate",
+        "pizza-slice-illusion-cake.jpg": "Pizza Party Illusion Cake",
+        "premium-chocolate-swirl-cake.jpg": "Premium Chocolate Swirl",
+        "pretty-in-pink-girl-cake.jpg": "Pretty In Pink Birthday",
+        "red-green-christmas-tree-cake.jpg": "Festive Christmas Tree Cake",
+        "red-jelly-heart-golden-sphere-cake.jpg": "Ruby Heart & Gold Spheres",
+        "red-mini-cake-black-hearts.jpg": "Petite Crimson Hearts",
+        "red-mirror-glaze-heart-cake.jpg": "Scarlet Mirror Glaze Heart",
+        "red-velvet-heart-cake.jpg": "Romantic Red Velvet Heart",
+        "relaxing-65th-birthday-recliner-cake-alt.jpg": "The Recliner Retreat Cake",
+        "relaxing-65th-birthday-recliner-cake.jpg": "Golden Years Recliner Cake",
+        "romantic-love-you-bunting-cake.jpg": "Sweet Bunting Love Cake",
+        "romantic-red-rose-love-cake.jpg": "Deep Love Red Rose Cake",
+        "teal-face-character-cake.jpg": "Funky Teal Character Cake",
+        "tic-tac-toe-best-husband-cake.jpg": "Best Husband Tic-Tac-Toe",
+        "valentines-day-rose-pot-cake.jpg": "Valentine's Rose Pot Delight",
+        "white-ribbon-heart-cake.jpg": "Pure Love White Ribbon Heart",
+        "white-swirl-rose-anniversary-cake.jpg": "Pristine Swirl Rose Anniversary",
+        "worlds-best-sister-cake.jpg": "World's Best Sister Cake"
     };
 
     const cakeCatalogByTitle = Object.fromEntries(
@@ -412,35 +507,28 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = '';
     };
 
-    // Populate gallery
-    images.forEach((imgSrc) => {
-        const note = getCakeNote(imgSrc);
-
-        const item = document.createElement('div');
-        item.className = 'gallery-item reveal';
-        item.tabIndex = 0;
-        item.setAttribute('role', 'button');
-        item.setAttribute('aria-label', `Open details for ${note.title}`);
+    const renderGallery = (categoryFilter = 'all') => {
+        galleryContainer.innerHTML = '';
         
-        const img = document.createElement('img');
-        img.loading = 'lazy';
-        img.src = `images/${encodeURIComponent(imgSrc)}`;
-        img.alt = note.title;
+        images.forEach((imgSrc) => {
+            const note = getCakeNote(imgSrc);
+            
+            if (categoryFilter !== 'all' && note.category !== categoryFilter) {
+                return;
+            }
 
-        item.addEventListener('click', () => {
-            openPostcard({
-                src: img.src,
-                alt: note.title,
-                title: note.title,
-                description: note.description,
-                category: note.category,
-                fileName: imgSrc
-            });
-        });
+            const item = document.createElement('div');
+            item.className = 'gallery-item reveal active'; // Add active to show immediately when filtered
+            item.tabIndex = 0;
+            item.setAttribute('role', 'button');
+            item.setAttribute('aria-label', `Open details for ${note.title}`);
+            
+            const img = document.createElement('img');
+            img.loading = 'lazy';
+            img.src = `images/${encodeURIComponent(imgSrc)}`;
+            img.alt = note.title;
 
-        item.addEventListener('keydown', (event) => {
-            if (event.key === 'Enter' || event.key === ' ') {
-                event.preventDefault();
+            item.addEventListener('click', () => {
                 openPostcard({
                     src: img.src,
                     alt: note.title,
@@ -449,12 +537,39 @@ document.addEventListener('DOMContentLoaded', () => {
                     category: note.category,
                     fileName: imgSrc
                 });
-            }
-        });
+            });
 
-        item.appendChild(img);
-        galleryContainer.appendChild(item);
+            item.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    openPostcard({
+                        src: img.src,
+                        alt: note.title,
+                        title: note.title,
+                        description: note.description,
+                        category: note.category,
+                        fileName: imgSrc
+                    });
+                }
+            });
+
+            item.appendChild(img);
+            galleryContainer.appendChild(item);
+        });
+    };
+
+    // Filter event listeners
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    filterButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderGallery(btn.dataset.category);
+        });
     });
+
+    // Populate initial gallery
+    renderGallery();
 
     closeModalBtn.addEventListener('click', closePostcard);
 

@@ -1,0 +1,16 @@
+# System files
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Gemini CLI
+.gemini/
+*.skill
+
+# IDEs
+.vscode/
+.idea/
