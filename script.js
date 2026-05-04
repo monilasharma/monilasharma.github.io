@@ -76,7 +76,6 @@ document.addEventListener('DOMContentLoaded', () => {
         "red-mirror-glaze-heart-cake.jpg",
         "red-velvet-heart-cake.jpg",
         "relaxing-65th-birthday-recliner-cake-alt.jpg",
-        "relaxing-65th-birthday-recliner-cake.jpg",
         "romantic-love-you-bunting-cake.jpg",
         "romantic-red-rose-love-cake.jpg",
         "teal-face-character-cake.jpg",
@@ -356,12 +355,6 @@ document.addEventListener('DOMContentLoaded', () => {
             "fileName": "relaxing-65th-birthday-recliner-cake-alt.jpg"
         },
         {
-            "title": "Golden Years Recliner Cake",
-            "description": "Celebrate a 65th birthday with this detailed and cozy recliner design.",
-            "category": "Birthday",
-            "fileName": "relaxing-65th-birthday-recliner-cake.jpg"
-        },
-        {
             "title": "Sweet Bunting Love Cake",
             "description": "Express your feelings with this charming 'Love You' bunting cake.",
             "category": "Anniversary",
@@ -509,7 +502,6 @@ document.addEventListener('DOMContentLoaded', () => {
         "red-mirror-glaze-heart-cake.jpg": "Scarlet Mirror Glaze Heart",
         "red-velvet-heart-cake.jpg": "Romantic Red Velvet Heart",
         "relaxing-65th-birthday-recliner-cake-alt.jpg": "The Recliner Retreat Cake",
-        "relaxing-65th-birthday-recliner-cake.jpg": "Golden Years Recliner Cake",
         "romantic-love-you-bunting-cake.jpg": "Sweet Bunting Love Cake",
         "romantic-red-rose-love-cake.jpg": "Deep Love Red Rose Cake",
         "teal-face-character-cake.jpg": "Funky Teal Character Cake",
