@@ -17,125 +17,174 @@
 </head>
 
 <body>
-
-    <!-- Dynamic 3D Bakery Background -->
-    <div class="animated-bg" id="animated-bg"></div>
-
-    <nav class="navbar">
-        <div class="nav-content">
-            <a class="logo-wrap" href="#home" aria-label="Pallav's Kitchen home">
-                <img src="images/logo.png" alt="Pallav's Kitchen logo" class="brand-mark" width="48" height="48">
-                <div class="brand-text">
-                    <span class="logo">Pallav's Kitchen</span>
-                    <span class="logo-sub">Cakes & Cookies by Monila Sharma</span>
-                </div>
-            </a>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#gallery">Gallery</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+    <nav class="site-nav" id="site-nav" aria-label="Primary navigation">
+        <a class="brand-lockup" href="#home" aria-label="Pallav's Kitchen home">
+            <img src="images/logo.png" alt="Pallav's Kitchen logo" class="brand-mark" width="48" height="48">
+            <span class="brand-copy">
+                <span class="brand-name">Pallav's Kitchen</span>
+                <span class="brand-maker">Cakes &amp; Cookies by Monila Sharma</span>
+            </span>
+        </a>
+        <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">Menu</button>
+        <div class="nav-menu" id="nav-menu">
+            <a href="#gallery">Gallery</a>
+            <a href="#story">Her story</a>
+            <a href="#contact">Order</a>
+            <a class="nav-order-link" href="#contact">Start an order <span aria-hidden="true">↗</span></a>
         </div>
     </nav>
 
-    <header class="hero" id="home">
-        <div class="hero-container">
-            <div class="hero-content reveal">
-                <div class="hero-badge">
-                    <span class="badge-text">Fresh From The Oven</span>
-                </div>
-                <h1 class="script-title">Baked with love,</h1>
-                <h1 class="main-title">Crafted to perfection.</h1>
-                <p class="subtitle">Experience the magic of premium homemade cakes and delightful bakery bowls, handcrafted in our cozy kitchen to sweeten your celebrations.</p>
-                <div class="hero-actions">
-                    <a href="#gallery" class="cta-button">Browse Sweets</a>
-                    <a href="#contact" class="secondary-button">Order Now</a>
-                </div>
-            </div>
-            <div class="hero-graphic-wrap reveal">
-                <div class="hero-canvas-frame">
-                    <canvas id="wireframe-cake"></canvas>
-                    <div class="decor-cherry-top">🍒</div>
-                </div>
-            </div>
-        </div>
-        <div class="wave-divider">
-            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,42.4V0Z" class="shape-fill"></path>
-            </svg>
-        </div>
-    </header>
-
-    <section class="gallery-section" id="gallery">
-        <div class="section-title reveal">
-            <h2>Our Sweet Creations</h2>
-            <div class="title-decor">🍪 🎂 🧁</div>
-            <p>Take a peek at our fresh home-baked creations. Each one is customizable and baked to order!</p>
-        </div>
-        
-        <div class="gallery-filters reveal">
-            <button class="filter-btn active" data-category="all">✨ All Delights</button>
-            <button class="filter-btn" data-category="Birthday">🎈 Birthday</button>
-            <button class="filter-btn" data-category="Anniversary">💖 Anniversary</button>
-            <button class="filter-btn" data-category="Festive">🎉 Festive</button>
-            <button class="filter-btn" data-category="Specialty">⭐ Specialty</button>
-            <button class="filter-btn" data-category="Cake Bowls">🥣 Cake Bowls</button>
-        </div>
-
-        <div class="gallery-grid" id="gallery-container">
-            <!-- Polaroid cards injected here by script.js -->
-        </div>
-    </section>
-
-    <!-- Postcard Detail Modal -->
-    <div class="postcard-modal" id="postcard-modal" aria-hidden="true" role="dialog" aria-labelledby="postcard-title">
-        <div class="postcard-shell" role="document">
-            <button class="modal-close" id="modal-close" aria-label="Close postcard">Close ✕</button>
-            <div class="postcard-copy">
-                <p class="postcard-kicker">🍰 Fresh Recipe Note</p>
-                <h3 id="postcard-title">Freshly Baked Delight</h3>
-                <div class="postcard-divider"></div>
-                <p id="postcard-description">A bakery note about this cake will appear here.</p>
-                <div class="postcard-meta-wrap">
-                    <div class="postcard-meta">
-                        <span id="postcard-category">Custom Cake</span>
-                        <span>100% Homemade</span>
+    <main>
+        <header class="hero" id="home" aria-labelledby="hero-heading">
+            <div class="hero-layout">
+                <div class="hero-copy reveal">
+                    <p class="eyebrow">PALLAV'S KITCHEN / HOME-BAKED</p>
+                    <h1 id="hero-heading">From her kitchen <span>to your celebration.</span></h1>
+                    <p class="hero-lede">Monila Sharma makes thoughtful cakes, cake bowls, and cookies to order, shaped around the moment you want to celebrate.</p>
+                    <div class="bake-ticket" aria-label="Start an order">
+                        <p class="ticket-label">MADE TO ORDER</p>
+                        <p class="ticket-copy">Tell Monila what you are celebrating and she will bake a creation for the occasion.</p>
+                        <a class="ticket-action" href="#contact">Start an order <span aria-hidden="true">↗</span></a>
+                        <p class="maker-note">Baked by Monila</p>
                     </div>
-                    <div class="postcard-stamp">
-                        <div class="stamp-circle">Made with Love</div>
+                </div>
+
+                <div class="hero-visual reveal" aria-label="Bakery counter and selected creations">
+                    <figure class="hero-atmosphere">
+                        <img src="images/3d_cozy_bakery_hero.png" alt="Illustrated bakery counter with warm kitchen light" width="1024" height="1024">
+                        <figcaption>Kitchen atmosphere</figcaption>
+                    </figure>
+                    <div class="hero-catalog-images">
+                        <figure class="hero-catalog-card hero-catalog-card-primary">
+                            <img data-featured-slot="hero-primary" src="images/romantic-red-roses-love-anniversary-cake.webp" alt="Romantic red roses cake" width="1078" height="1078" loading="eager">
+                            <figcaption>Anniversary cake</figcaption>
+                        </figure>
+                        <figure class="hero-catalog-card hero-catalog-card-secondary">
+                            <img data-featured-slot="hero-secondary" src="images/classic-oreo-chocolate-cake-bowl.webp" alt="Classic Oreo chocolate cake bowl" width="1200" height="898" loading="eager">
+                            <figcaption>Cake bowl</figcaption>
+                        </figure>
                     </div>
                 </div>
             </div>
-            <div class="postcard-photo-wrap">
-                <img id="postcard-image" src="" alt="Selected cake from Pallav's Kitchen">
-            </div>
-        </div>
-    </div>
+            <a class="scroll-cue" href="#featured">Scroll the counter <span aria-hidden="true">↓</span></a>
+        </header>
 
-    <footer id="contact">
-        <div class="footer-wave">
-            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,42.4V0Z" class="shape-fill"></path>
-            </svg>
-        </div>
+        <section class="proof-strip" aria-label="Pallav's Kitchen at a glance">
+            <ul class="proof-list">
+                <li>
+                    <span class="proof-value" data-catalog-count>104 creations</span>
+                    <span class="proof-label">in the table</span>
+                </li>
+                <li>
+                    <span class="proof-value">made to order</span>
+                    <span class="proof-label">for your occasion</span>
+                </li>
+                <li>
+                    <span class="proof-value">baked in Monila's kitchen</span>
+                    <span class="proof-label">with a personal finish</span>
+                </li>
+            </ul>
+        </section>
+
+        <section class="featured-section" id="featured" aria-labelledby="featured-heading">
+            <div class="section-heading reveal">
+                <p class="eyebrow">A FEW FROM THE TABLE</p>
+                <h2 id="featured-heading">Small kitchen, big celebrations.</h2>
+                <p>Start with a handful of creations from Monila's catalog, then find the detail that feels like your moment.</p>
+                <a class="section-link" href="#gallery">View the full table <span aria-hidden="true">↗</span></a>
+            </div>
+            <div id="featured-grid" class="featured-grid" aria-live="polite"></div>
+        </section>
+
+        <section class="story-section" id="story" aria-labelledby="story-heading">
+            <figure class="story-visual reveal">
+                <img src="images/3d_cozy_bakery_hero.png" alt="Kitchen atmosphere on a bakery counter" width="1024" height="1024" loading="lazy">
+                <figcaption>Kitchen atmosphere</figcaption>
+            </figure>
+            <div class="story-copy reveal">
+                <p class="eyebrow">HER STORY</p>
+                <h2 id="story-heading">A home kitchen with room for your story.</h2>
+                <p>Monila Sharma listens for the feeling behind an occasion, sketches a finish, and bakes it fresh in her kitchen.</p>
+                <p>Every cake, bowl, and cookie is a small invitation to gather, mark a milestone, or make an ordinary day sweeter.</p>
+                <p class="maker-note">Made with care by Monila.</p>
+            </div>
+        </section>
+
+        <section class="gallery-section" id="gallery" aria-labelledby="gallery-heading">
+            <div class="gallery-toolbar">
+                <div class="section-heading reveal">
+                    <p class="eyebrow">THE FULL TABLE</p>
+                    <h2 id="gallery-heading">Find your next centerpiece.</h2>
+                    <p>Browse the catalog by occasion, then open any creation for its recipe note.</p>
+                </div>
+                <p class="gallery-count" aria-live="polite"><span id="gallery-count">104 creations</span></p>
+            </div>
+            <div class="gallery-filters" role="group" aria-label="Filter creations">
+                <button class="filter-btn active is-active" type="button" data-category="all" aria-pressed="true">All creations</button>
+                <button class="filter-btn" type="button" data-category="Birthday" aria-pressed="false">Birthday</button>
+                <button class="filter-btn" type="button" data-category="Anniversary" aria-pressed="false">Anniversary</button>
+                <button class="filter-btn" type="button" data-category="Festive" aria-pressed="false">Festive</button>
+                <button class="filter-btn" type="button" data-category="Specialty" aria-pressed="false">Specialty</button>
+                <button class="filter-btn" type="button" data-category="Cake Bowls" aria-pressed="false">Cake bowls</button>
+            </div>
+            <p id="filter-status" class="sr-only" aria-live="polite">Showing all 104 creations.</p>
+            <div class="gallery-grid" id="gallery-container"></div>
+        </section>
+
+        <section class="process-section" id="process" aria-labelledby="process-heading">
+            <div class="process-intro reveal">
+                <p class="eyebrow">THE BAKE TICKET</p>
+                <h2 id="process-heading">Three steps from idea to fresh bake.</h2>
+                <p>Bring the occasion; Monila will help shape the sweet part.</p>
+            </div>
+            <ol class="process-steps">
+                <li class="process-step reveal">
+                    <span class="step-number" aria-hidden="true">01</span>
+                    <h3>Choose an idea</h3>
+                    <p>Browse the table for a shape, color, or flavor direction that catches your eye.</p>
+                    <a href="#gallery">Browse creations <span aria-hidden="true">↗</span></a>
+                </li>
+                <li class="process-step reveal">
+                    <span class="step-number" aria-hidden="true">02</span>
+                    <h3>Share the occasion</h3>
+                    <p>Tell Monila what you are celebrating and the details you want to make yours.</p>
+                    <a href="#contact">Share the details <span aria-hidden="true">↗</span></a>
+                </li>
+                <li class="process-step reveal">
+                    <span class="step-number" aria-hidden="true">03</span>
+                    <h3>Collect a fresh bake</h3>
+                    <p>Monila turns the idea into a made-to-order creation for your table.</p>
+                    <a href="#contact">Start an order <span aria-hidden="true">↗</span></a>
+                </li>
+            </ol>
+        </section>
+    </main>
+
+    <footer id="contact" aria-labelledby="contact-heading">
         <div class="footer-content">
-            <img src="images/logo.png" alt="Pallav's Kitchen Logo" class="footer-mark" width="96" height="96">
-            <h3 class="logo-footer">Pallav's Kitchen</h3>
-            <p class="footer-tagline">Handcrafted with passion in our cozy kitchen, enjoyed in yours.</p>
-            
+            <div class="footer-intro">
+                <img src="images/logo.png" alt="Pallav's Kitchen logo" class="footer-mark" width="96" height="96">
+                <p class="eyebrow">READY WHEN YOU ARE</p>
+                <h2 id="contact-heading">Bring your next celebration to the counter.</h2>
+                <p class="footer-tagline">Share the occasion with Monila and start a conversation about your bake.</p>
+            </div>
+
             <div class="footer-contact-row">
                 <a href="tel:+918796312333" class="contact-pill phone-pill">
-                    <span>📞 Call Us: +91 87963 12333</span>
+                    <span class="contact-label">Call</span>
+                    <span>+91 87963 12333</span>
                 </a>
                 <a href="https://wa.me/918796312333" target="_blank" rel="noopener" class="contact-pill whatsapp-pill">
-                    <span>💬 Chat on WhatsApp</span>
+                    <span class="contact-label">WhatsApp</span>
+                    <span>Chat with Monila</span>
                 </a>
             </div>
 
             <div class="contact-form-wrap" aria-label="Contact form">
                 <div class="form-header">
-                    <h4>🍰 Bakery Order & Enquiry Form</h4>
-                    <p class="contact-form-note">Let us know what you'd like to order, and we'll bake it fresh for you!</p>
+                    <p class="eyebrow">ORDER &amp; ENQUIRY</p>
+                    <h3>Tell us what you are celebrating.</h3>
+                    <p class="contact-form-note">Share a few details and Monila will have the right starting point for your order.</p>
                 </div>
                 <iframe
                     title="Pallav's Kitchen contact form"
@@ -144,16 +193,38 @@
                     Loading form...
                 </iframe>
                 <p class="contact-form-link-row">
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeTq1AsEnwVHaENFXxSXrYbEAFVLC57FIohpxPKb1Oc2Am6pg/viewform" target="_blank" rel="noopener noreferrer">Open form in a new tab ↗</a>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeTq1AsEnwVHaENFXxSXrYbEAFVLC57FIohpxPKb1Oc2Am6pg/viewform" target="_blank" rel="noopener noreferrer">Open form in a new tab <span aria-hidden="true">↗</span></a>
                 </p>
             </div>
-            <p class="copyright">&copy; 2026 Pallav's Kitchen. Created with love & passion.</p>
+            <p class="copyright">&copy; 2026 Pallav's Kitchen. Created with love &amp; passion.</p>
         </div>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <div class="postcard-modal" id="postcard-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="postcard-title" aria-describedby="postcard-description">
+        <div class="postcard-shell" role="document">
+            <button class="modal-close" id="modal-close" type="button" aria-label="Close postcard">Close <span aria-hidden="true">×</span></button>
+            <div class="postcard-photo-wrap">
+                <img id="postcard-image" src="" alt="">
+            </div>
+            <div class="postcard-copy">
+                <p class="postcard-kicker">RECIPE NOTE</p>
+                <h2 id="postcard-title">Selected creation</h2>
+                <div class="postcard-divider"></div>
+                <p id="postcard-description">A note about this creation will appear here.</p>
+                <div class="postcard-meta-wrap">
+                    <div class="postcard-meta">
+                        <span id="postcard-category">Custom creation</span>
+                        <span>Made to order</span>
+                    </div>
+                    <div class="postcard-stamp">
+                        <div class="stamp-circle">Baked by Monila</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 
 </html>
-
