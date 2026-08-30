@@ -865,6 +865,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const postcardTitle = document.getElementById("postcard-title");
     const postcardDescription = document.getElementById("postcard-description");
     const postcardCategory = document.getElementById("postcard-category");
+    const postcardOrderLink = document.getElementById("postcard-order-link");
     const filterButtons = Array.from(document.querySelectorAll(".filter-btn"));
     const allFilterButton = filterButtons.find((button) => button.dataset.category === "all");
     let previousBodyOverflow = null;
@@ -1182,6 +1183,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (postcardCategory) {
             postcardCategory.textContent = selectedNote.category;
         }
+        if (postcardOrderLink) {
+            postcardOrderLink.href =
+                "https://wa.me/918796312333?text=" +
+                encodeURIComponent("Hi Monila, I'd like to ask about the " + selectedNote.title + ".");
+        }
 
         modal.__trigger = trigger;
         modal.hidden = false;
@@ -1254,8 +1260,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function initializeScrollMotion() {
         const hero = document.querySelector(".hero");
-        const imageStrip = document.querySelector(".hero-image-strip");
-        if (!hero || !imageStrip || typeof window === "undefined") {
+        const heroFeature = document.querySelector(".hero-feature");
+        if (!hero || !heroFeature || typeof window === "undefined") {
             return;
         }
 
@@ -1278,7 +1284,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             document.documentElement.style.setProperty("--scroll-progress", scrollProgress + "%");
             if (!reducedMotion) {
-                imageStrip.style.setProperty("--parallax-y", (progress * 16) + "px");
+                heroFeature.style.setProperty("--parallax-y", (progress * 16) + "px");
             }
         };
 
