@@ -965,6 +965,8 @@ document.addEventListener('DOMContentLoaded', () => {
         card.dataset.category = note.category;
         card.tabIndex = 0;
         card.setAttribute("aria-label", "Open details for " + note.title);
+        const cardIndex = Number.isFinite(options.index) ? options.index : 0;
+        card.style.setProperty("--card-delay", ((cardIndex % 8) * 45) + "ms");
 
         const media = createCardMedia(
             fileName,
@@ -1064,9 +1066,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (galleryContainer) {
             galleryContainer.innerHTML = "";
-            matchingImages.forEach((fileName) => {
+            matchingImages.forEach((fileName, index) => {
                 galleryContainer.appendChild(createCatalogCard(fileName, {
-                    loading: "lazy"
+                    loading: "lazy",
+                    index
                 }));
             });
 
@@ -1249,9 +1252,51 @@ document.addEventListener('DOMContentLoaded', () => {
         revealItems.forEach((element) => observer.observe(element));
     }
 
+    function initializeScrollMotion() {
+        const hero = document.querySelector(".hero");
+        const imageStrip = document.querySelector(".hero-image-strip");
+        if (!hero || !imageStrip || typeof window === "undefined") {
+            return;
+        }
+
+        const reducedMotion = typeof window.matchMedia === "function"
+            && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        let frame = 0;
+
+        const update = () => {
+            frame = 0;
+            const viewportHeight = window.innerHeight || 1;
+            const heroRect = hero.getBoundingClientRect();
+            const start = viewportHeight * 0.24;
+            const end = -heroRect.height * 0.7;
+            const progress = Math.max(0, Math.min(1, (start - heroRect.top) / (start - end)));
+            const documentHeight = Math.max(
+                document.documentElement.scrollHeight - viewportHeight,
+                1
+            );
+            const scrollProgress = Math.max(0, Math.min(100, (window.scrollY / documentHeight) * 100));
+
+            document.documentElement.style.setProperty("--scroll-progress", scrollProgress + "%");
+            if (!reducedMotion) {
+                imageStrip.style.setProperty("--parallax-y", (progress * 16) + "px");
+            }
+        };
+
+        const scheduleUpdate = () => {
+            if (frame === 0) {
+                frame = window.requestAnimationFrame(update);
+            }
+        };
+
+        update();
+        window.addEventListener("scroll", scheduleUpdate, { passive: true });
+        window.addEventListener("resize", scheduleUpdate, { passive: true });
+    }
+
     closePostcard();
     renderGallery("all");
     initializeReveal();
+    initializeScrollMotion();
 
     if (typeof window !== "undefined") {
         window.getCakeNote = getCakeNote;
