@@ -1,48 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-
-    // 1. Automatically match system color scheme
-    const root = document.documentElement;
-    const colorSchemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
-
-    const applySystemTheme = () => {
-        root.dataset.theme = colorSchemeQuery.matches ? 'dark' : 'light';
-    };
-
-    applySystemTheme();
-
-    if (typeof colorSchemeQuery.addEventListener === 'function') {
-        colorSchemeQuery.addEventListener('change', applySystemTheme);
-    } else if (typeof colorSchemeQuery.addListener === 'function') {
-        colorSchemeQuery.addListener(applySystemTheme);
-    }
-
-    // 2. Generate floating 3D bakery items in the background
-    const bgContainer = document.getElementById('animated-bg');
-    const floatingAssets = [
-        'images/3d_strawberry_cake.png',
-        'images/3d_chocolate_cookie.png',
-        'images/3d_pastel_cupcake.png',
-        'images/3d_golden_croissant.png'
-    ];
-    const anims = ['float-slow-1', 'float-slow-2', 'float-slow-3'];
-
-    for (let i = 0; i < 12; i++) {
-        const item = document.createElement('img');
-        item.className = 'floating-item';
-        item.src = floatingAssets[i % floatingAssets.length];
-        item.alt = 'Bakery illustration decoration';
-
-        item.style.setProperty('--x', `${Math.random() * 100}%`);
-        item.style.setProperty('--y', `${Math.random() * 100}%`);
-        item.style.setProperty('--size', `${50 + Math.random() * 80}px`);
-
-        const randomAnim = anims[Math.floor(Math.random() * anims.length)];
-        item.style.animation = `${randomAnim} ${15 + Math.random() * 20}s ease-in-out infinite`;
-        item.style.animationDelay = `-${Math.random() * 20}s`;
-
-        bgContainer.appendChild(item);
-    }
-
     const images = [
   "elegant-grey-rosette-birthday-cake.webp",
   "red-velvet-swirl-cake-bowl.webp",
@@ -884,433 +840,374 @@ document.addEventListener('DOMContentLoaded', () => {
   "purple-number-26-birthday-cake.webp": "Purple Number 26 Birthday Cake"
 };
 
+    const cakeCatalogByFile = Object.fromEntries(
+        cakeCatalog.map((entry) => [entry.fileName, entry])
+    );
     const cakeCatalogByTitle = Object.fromEntries(
         cakeCatalog.map((entry) => [entry.title, entry])
     );
-
     const cakeNotesByImage = Object.fromEntries(
-        Object.entries(imageToCakeTitle)
-            .map(([fileName, title]) => [fileName, cakeCatalogByTitle[title]])
+        images
+            .map((imageName) => {
+                const title = imageToCakeTitle[imageName];
+                const note = cakeCatalogByFile[imageName] || cakeCatalogByTitle[title];
+                return [imageName, note];
+            })
             .filter(([, note]) => Boolean(note))
     );
 
-    const galleryContainer = document.getElementById('gallery-container');
-    const modal = document.getElementById('postcard-modal');
-    const closeModalBtn = document.getElementById('modal-close');
-    const postcardImage = document.getElementById('postcard-image');
-    const postcardTitle = document.getElementById('postcard-title');
-    const postcardDescription = document.getElementById('postcard-description');
-    const postcardCategory = document.getElementById('postcard-category');
-    const postcardFile = document.getElementById('postcard-file');
+    const featuredGrid = document.getElementById("featured-grid");
+    const galleryContainer = document.getElementById("gallery-container");
+    const galleryCount = document.getElementById("gallery-count");
+    const filterStatus = document.getElementById("filter-status");
+    const modal = document.getElementById("postcard-modal");
+    const closeModalBtn = document.getElementById("modal-close");
+    const postcardImage = document.getElementById("postcard-image");
+    const postcardTitle = document.getElementById("postcard-title");
+    const postcardDescription = document.getElementById("postcard-description");
+    const postcardCategory = document.getElementById("postcard-category");
+    const filterButtons = Array.from(document.querySelectorAll(".filter-btn"));
+    const allFilterButton = filterButtons.find((button) => button.dataset.category === "all");
 
-    const getCakeNote = (imageName) => {
-        const note = cakeNotesByImage[imageName];
+    const defaultCakeNote = {
+        title: "Signature Bakery Delight",
+        description: "Freshly handcrafted at Pallav's Kitchen with premium ingredients and thoughtful finishing details.",
+        category: "House Special"
+    };
 
-        if (note) {
-            return note;
+    function getCakeNote(imageName) {
+        return cakeNotesByImage[imageName] || cakeCatalogByFile[imageName] || defaultCakeNote;
+    }
+
+    function getImageSource(fileName) {
+        return "images/" + encodeURIComponent(fileName);
+    }
+
+    function replaceImageWithFallback(image, note, fileName, isFeatured) {
+        if (image.dataset.fallbackApplied === "true") {
+            return;
         }
 
-        return {
-            title: 'Signature Bakery Delight',
-            description: 'Freshly handcrafted at Pallav\'s Kitchen with premium ingredients and thoughtful finishing details.',
-            category: 'House Special'
+        image.dataset.fallbackApplied = "true";
+        if (isFeatured) {
+            console.warn("[gallery] missing featured asset", fileName);
+        } else {
+            console.warn("[gallery] missing asset", fileName);
+        }
+
+        const fallback = document.createElement("div");
+        fallback.className = "media-fallback";
+        fallback.setAttribute("role", "img");
+        fallback.setAttribute("aria-label", "Image unavailable: " + note.title);
+        fallback.textContent = "Image unavailable";
+        image.replaceWith(fallback);
+    }
+
+    function createCardMedia(fileName, note, loading, isFeatured) {
+        const media = document.createElement("div");
+        media.className = "card-media";
+
+        const image = document.createElement("img");
+        image.width = 4;
+        image.height = 3;
+        image.loading = loading;
+        image.setAttribute("loading", loading);
+        image.src = getImageSource(fileName);
+        image.alt = note.title;
+        image.decoding = "async";
+        image.onerror = () => {
+            replaceImageWithFallback(image, note, fileName, isFeatured);
         };
-    };
 
-    const openPostcard = ({ src, title, description, category, alt, fileName }) => {
-        postcardImage.src = src;
-        postcardImage.alt = alt;
-        postcardTitle.textContent = title;
-        postcardDescription.textContent = description;
-        postcardCategory.textContent = category;
-        modal.classList.add('open');
-        modal.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
-    };
+        media.appendChild(image);
+        return media;
+    }
 
-    const closePostcard = () => {
-        modal.classList.remove('open');
-        modal.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-    };
+    function attachCardInteraction(card, note, src) {
+        const open = (trigger) => openPostcard({ trigger, note, src });
 
-    const renderGallery = (categoryFilter = 'all') => {
-        galleryContainer.innerHTML = '';
-        
-        images.forEach((imgSrc) => {
-            const note = getCakeNote(imgSrc);
-            
-            if (categoryFilter !== 'all' && note.category !== categoryFilter) {
+        card.addEventListener("click", (event) => {
+            const target = event.target;
+            if (target && typeof target.closest === "function" && target.closest(".card-action")) {
+                return;
+            }
+            open(card);
+        });
+
+        card.addEventListener("keydown", (event) => {
+            if (event.key !== "Enter" && event.key !== " ") {
                 return;
             }
 
-            const item = document.createElement('div');
-            item.className = 'gallery-item reveal active'; // Add active to show immediately when filtered
-            item.tabIndex = 0;
-            item.setAttribute('role', 'button');
-            item.setAttribute('aria-label', `Open details for ${note.title}`);
-            
-            // Random slight rotation for Polaroid effect
-            const randomRotation = (Math.random() * 6 - 3).toFixed(1);
-            item.style.setProperty('--rotation', `${randomRotation}deg`);
-            
-            const imgWrap = document.createElement('div');
-            imgWrap.className = 'polaroid-img-wrap';
+            event.preventDefault();
+            open(card);
+        });
 
-            const img = document.createElement('img');
-            img.loading = 'lazy';
-            img.src = `images/${encodeURIComponent(imgSrc)}`;
-            img.alt = note.title;
+        const action = card.querySelector(".card-action");
+        if (action) {
+            action.addEventListener("click", (event) => {
+                event.stopPropagation();
+                open(action);
+            });
+        }
+    }
 
-            imgWrap.appendChild(img);
-            item.appendChild(imgWrap);
+    function createCatalogCard(fileName, options = {}) {
+        const note = getCakeNote(fileName);
+        const isFeatured = options.isFeatured === true;
+        const card = document.createElement("article");
+        card.className = isFeatured ? "featured-card" : "gallery-card";
+        card.dataset.fileName = fileName;
+        card.dataset.category = note.category;
+        card.tabIndex = 0;
+        card.setAttribute("aria-label", "Open details for " + note.title);
 
-            const caption = document.createElement('div');
-            caption.className = 'polaroid-caption';
+        const media = createCardMedia(
+            fileName,
+            note,
+            options.loading || "lazy",
+            isFeatured
+        );
+        card.appendChild(media);
 
-            const title = document.createElement('span');
-            title.className = 'polaroid-title';
-            title.textContent = note.title;
+        const content = document.createElement("div");
+        content.className = "card-content";
 
-            const tag = document.createElement('span');
-            tag.className = 'polaroid-tag';
-            tag.textContent = note.category;
+        const category = document.createElement("p");
+        category.className = "card-category";
+        category.textContent = note.category;
 
-            caption.appendChild(title);
-            caption.appendChild(tag);
-            item.appendChild(caption);
+        const title = document.createElement("h3");
+        title.className = "card-title";
+        title.textContent = note.title;
 
-            item.addEventListener('click', () => {
-                openPostcard({
-                    src: img.src,
-                    alt: note.title,
-                    title: note.title,
-                    description: note.description,
-                    category: note.category,
-                    fileName: imgSrc
-                });
+        const action = document.createElement("button");
+        action.type = "button";
+        action.className = "card-action";
+        action.textContent = "View details";
+
+        content.append(category, title, action);
+        card.appendChild(content);
+
+        attachCardInteraction(card, note, getImageSource(fileName));
+        return card;
+    }
+
+    const FEATURED_FILES = [
+        'romantic-red-roses-love-anniversary-cake.webp',
+        'classic-oreo-chocolate-cake-bowl.webp',
+        'nutty-butter-cookies.webp',
+        'pink-purple-floral-butterfly-cake.webp'
+    ];
+
+    function renderFeatured() {
+        if (!featuredGrid) {
+            return 0;
+        }
+
+        featuredGrid.innerHTML = "";
+        let renderedCount = 0;
+
+        FEATURED_FILES.forEach((fileName, index) => {
+            const note = cakeCatalogByFile[fileName];
+            if (!note) {
+                console.warn("[gallery] missing featured asset", fileName);
+                return;
+            }
+
+            featuredGrid.appendChild(createCatalogCard(fileName, {
+                isFeatured: true,
+                loading: index === 0 ? "eager" : "lazy"
+            }));
+            renderedCount += 1;
+        });
+
+        return renderedCount;
+    }
+
+    function updateFilterStatus(category, count) {
+        const selectedCategory = category || "all";
+        const countLabel = count + (count === 1 ? " creation" : " creations");
+
+        if (galleryCount) {
+            galleryCount.textContent = countLabel;
+        }
+
+        if (filterStatus) {
+            if (selectedCategory === "all") {
+                filterStatus.textContent = "Showing all " + countLabel + ".";
+            } else if (count === 0) {
+                filterStatus.textContent = "No creations found in " + selectedCategory + ".";
+            } else {
+                filterStatus.textContent = "Showing " + countLabel + " in " + selectedCategory + ".";
+            }
+        }
+    }
+
+    function setActiveFilter(button) {
+        filterButtons.forEach((candidate) => {
+            const isActive = candidate === button;
+            candidate.classList.toggle("is-active", isActive);
+            candidate.classList.toggle("active", isActive);
+            candidate.setAttribute("aria-pressed", String(isActive));
+        });
+    }
+
+    function createEmptyState(category) {
+        const empty = document.createElement("div");
+        empty.className = "gallery-empty empty-state";
+
+        const message = document.createElement("p");
+        message.textContent = category === "all"
+            ? "No creations are available right now."
+            : "No creations found in " + category + ".";
+
+        const reset = document.createElement("button");
+        reset.type = "button";
+        reset.className = "card-action";
+        reset.textContent = "Show all creations";
+        reset.addEventListener("click", () => {
+            if (allFilterButton) {
+                setActiveFilter(allFilterButton);
+            }
+            renderGallery("all");
+        });
+
+        empty.append(message, reset);
+        return empty;
+    }
+
+    function renderGallery(category = "all") {
+        const selectedCategory = category || "all";
+        const selectedButton = filterButtons.find(
+            (button) => button.dataset.category === selectedCategory
+        );
+        if (selectedButton) {
+            setActiveFilter(selectedButton);
+        }
+
+        const matchingImages = images.filter((fileName) => {
+            const note = getCakeNote(fileName);
+            return selectedCategory === "all" || note.category === selectedCategory;
+        });
+
+        if (galleryContainer) {
+            galleryContainer.innerHTML = "";
+            matchingImages.forEach((fileName) => {
+                galleryContainer.appendChild(createCatalogCard(fileName, {
+                    loading: "lazy",
+                    isFeatured: false
+                }));
             });
 
-            item.addEventListener('keydown', (event) => {
-                if (event.key === 'Enter' || event.key === ' ') {
-                    event.preventDefault();
-                    openPostcard({
-                        src: img.src,
-                        alt: note.title,
-                        title: note.title,
-                        description: note.description,
-                        category: note.category,
-                        fileName: imgSrc
-                    });
+            if (matchingImages.length === 0) {
+                galleryContainer.appendChild(createEmptyState(selectedCategory));
+            }
+        }
+
+        updateFilterStatus(selectedCategory, matchingImages.length);
+        return matchingImages.length;
+    }
+
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener("click", closePostcard);
+    }
+
+    if (modal) {
+        modal.addEventListener("click", (event) => {
+            if (event.target === modal) {
+                closePostcard();
+            }
+        });
+    }
+
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && modal && modal.getAttribute("aria-hidden") === "false") {
+            closePostcard();
+        }
+    });
+
+    function openPostcard({ trigger = null, note = defaultCakeNote, src = "" } = {}) {
+        if (!modal) {
+            return;
+        }
+
+        const selectedNote = note || defaultCakeNote;
+        if (postcardImage) {
+            postcardImage.src = src;
+            postcardImage.alt = selectedNote.title;
+        }
+        if (postcardTitle) {
+            postcardTitle.textContent = selectedNote.title;
+        }
+        if (postcardDescription) {
+            postcardDescription.textContent = selectedNote.description;
+        }
+        if (postcardCategory) {
+            postcardCategory.textContent = selectedNote.category;
+        }
+
+        modal.__trigger = trigger;
+        modal.classList.add("open");
+        modal.setAttribute("aria-hidden", "false");
+        document.body.classList.add("modal-open");
+        document.body.style.overflow = "hidden";
+    }
+
+    function closePostcard() {
+        if (!modal) {
+            return;
+        }
+
+        modal.classList.remove("open");
+        modal.setAttribute("aria-hidden", "true");
+        document.body.classList.remove("modal-open");
+        document.body.style.overflow = "";
+    }
+
+    filterButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            setActiveFilter(button);
+            renderGallery(button.dataset.category || "all");
+        });
+    });
+
+    function initializeReveal() {
+        const revealItems = Array.from(document.querySelectorAll(".reveal"));
+        if (revealItems.length === 0) {
+            return;
+        }
+
+        const show = (element) => element.classList.add("is-visible");
+        if (typeof window.IntersectionObserver !== "function") {
+            revealItems.forEach(show);
+            return;
+        }
+
+        const observer = new IntersectionObserver((entries, observerInstance) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    show(entry.target);
+                    observerInstance.unobserve(entry.target);
                 }
             });
+        }, { root: null, rootMargin: "0px", threshold: 0.15 });
 
-            galleryContainer.appendChild(item);
-        });
-    };
+        revealItems.forEach((element) => observer.observe(element));
+    }
 
-    // Filter event listeners
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    filterButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            filterButtons.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            renderGallery(btn.dataset.category);
-        });
-    });
+    renderFeatured();
+    renderGallery("all");
+    initializeReveal();
 
-    // Populate initial gallery
-    renderGallery();
-
-    closeModalBtn.addEventListener('click', closePostcard);
-
-    modal.addEventListener('click', (event) => {
-        if (event.target === modal) {
-            closePostcard();
-        }
-    });
-
-    document.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape' && modal.classList.contains('open')) {
-            closePostcard();
-        }
-    });
-
-    // 4. Intersection Observer for Scroll Animations
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.15
-    };
-
-    const revealOnScroll = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-
-    // Initial trigger for hero section items
-    setTimeout(() => {
-        document.querySelectorAll('.reveal').forEach((el) => {
-            if (el.classList.contains('hero-content')) {
-                el.classList.add('active');
-            } else {
-                revealOnScroll.observe(el);
-            }
-        });
-    }, 100);
-
-    // 5. Interactive 3D Shaded Chocolate Cake in Hero (Three.js)
-    const initWireframeCake = () => {
-        const canvas = document.getElementById('wireframe-cake');
-        if (!canvas || typeof THREE === 'undefined') return;
-
-        const container = canvas.parentElement;
-        const scene = new THREE.Scene();
-
-        const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
-        camera.position.set(0, 1.3, 4.5);
-        camera.lookAt(0, 0.2, 0);
-
-        const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
-        renderer.setSize(container.clientWidth, container.clientHeight);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-        // Add soft lighting to shade the 3D surfaces
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.55);
-        scene.add(ambientLight);
-
-        const mainLight = new THREE.DirectionalLight(0xffffff, 0.75);
-        mainLight.position.set(3, 5, 4);
-        scene.add(mainLight);
-
-        // Soft brand coral rim light for delicious warm glow
-        const rimLight = new THREE.DirectionalLight(0xfa6e6d, 0.35);
-        rimLight.position.set(-3, 2, -3);
-        scene.add(rimLight);
-
-        // Brand color utility from CSS variables
-        const getBrandColors = () => {
-            const style = getComputedStyle(document.documentElement);
-            const blueStr = style.getPropertyValue('--brand-blue').trim() || '#0e4693';
-            const coralStr = style.getPropertyValue('--brand-coral').trim() || '#fa6e6d';
-            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-            return {
-                blue: new THREE.Color(blueStr),
-                coral: new THREE.Color(coralStr),
-                plate: new THREE.Color(isDark ? '#0c2d5f' : '#f5edd8')
-            };
-        };
-
-        const currentColors = getBrandColors();
-
-        // 3D Shaded Materials (Phong Material for specular reflections)
-        const chocolateMaterial = new THREE.MeshPhongMaterial({
-            color: 0x482816, // Rich chocolate sponge
-            specular: 0x1a0f0a,
-            shininess: 6,
-            flatShading: true
-        });
-
-        const creamMaterial = new THREE.MeshPhongMaterial({
-            color: 0xffdbdb, // Soft vanilla-strawberry cream layer
-            specular: 0x221111,
-            shininess: 12
-        });
-
-        const frostingMaterial = new THREE.MeshPhongMaterial({
-            color: currentColors.coral, // Brand coral dripping frosting
-            specular: 0x664444,
-            shininess: 85
-        });
-
-        const plateMaterial = new THREE.MeshPhongMaterial({
-            color: currentColors.plate, // Ceramic light cream or brand blue
-            specular: 0x888888,
-            shininess: 100
-        });
-
-        const cherryMaterial = new THREE.MeshPhongMaterial({
-            color: 0xd62828, // Deep red glossy cherry
-            specular: 0xbbbbbb,
-            shininess: 120
-        });
-
-        const stemMaterial = new THREE.MeshPhongMaterial({
-            color: 0x4d372c,
-            specular: 0x050505,
-            shininess: 2
-        });
-
-        const particleMaterial = new THREE.PointsMaterial({
-            color: currentColors.coral,
-            size: 0.04,
-            transparent: true,
-            opacity: 0.7
-        });
-
-        // Dynamic updates on theme changes
-        const themeObserver = new MutationObserver(() => {
-            const updated = getBrandColors();
-            frostingMaterial.color.copy(updated.coral);
-            plateMaterial.color.copy(updated.plate);
-            particleMaterial.color.copy(updated.coral);
-        });
-        themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-
-        // Cake Assembly Group
-        const cakeGroup = new THREE.Group();
-
-        // 1. Ceramic Plate (Full cylinder)
-        const plateGeo = new THREE.CylinderGeometry(1.8, 1.8, 0.08, 32);
-        const plate = new THREE.Mesh(plateGeo, plateMaterial);
-        plate.position.y = -0.4;
-        cakeGroup.add(plate);
-
-        // Helper to draw a circle sector shape for the main cake and the slice
-        const getCakeShape = (radius, startAngle, endAngle) => {
-            const shape = new THREE.Shape();
-            shape.moveTo(0, 0);
-            shape.absarc(0, 0, radius, startAngle, endAngle, false);
-            shape.lineTo(0, 0);
-            return shape;
-        };
-
-        // Helper to create a whole cake tier (perfectly aligned cylinders)
-        const createWholeTier = (radius, height, yOffset) => {
-            const tierGroup = new THREE.Group();
-
-            const spongeHeight = height * 0.9;
-            const frostingHeight = height * 0.1;
-
-            // 1. Sponge Base Cylinder
-            const spongeGeo = new THREE.CylinderGeometry(radius, radius, spongeHeight, 48);
-            spongeGeo.translate(0, spongeHeight / 2, 0); // Bottom is at y = 0
-            const spongeMesh = new THREE.Mesh(spongeGeo, chocolateMaterial);
-            spongeMesh.position.y = 0;
-            tierGroup.add(spongeMesh);
-
-            // 2. Cream Frosting Top Glaze Cylinder
-            const frostingGeo = new THREE.CylinderGeometry(radius, radius, frostingHeight, 48);
-            frostingGeo.translate(0, frostingHeight / 2, 0); // Bottom is at y = 0
-            const frostingMesh = new THREE.Mesh(frostingGeo, frostingMaterial);
-            frostingMesh.position.y = spongeHeight;
-            tierGroup.add(frostingMesh);
-
-            // Add cream dollops in a perfect circle along the top rim
-            const dollopCount = 18;
-            const dollopGeo = new THREE.SphereGeometry(0.045, 8, 8);
-            const topY = spongeHeight + frostingHeight;
-            for (let i = 0; i < dollopCount; i++) {
-                const angle = (i / dollopCount) * Math.PI * 2;
-                const dollop = new THREE.Mesh(dollopGeo, creamMaterial); // Vanilla cream dollops for contrast
-                dollop.position.set(
-                    Math.cos(angle) * (radius - 0.08),
-                    topY + 0.02,
-                    Math.sin(angle) * (radius - 0.08)
-                );
-                const s = 0.85 + Math.random() * 0.3;
-                dollop.scale.set(s, s, s);
-                tierGroup.add(dollop);
-            }
-
-            tierGroup.position.y = yOffset;
-            return tierGroup;
-        };
-
-        // 2. Whole Cake Assembly (Single Tier Cylinder)
-        const mainCake = createWholeTier(1.3, 0.75, -0.4);
-        cakeGroup.add(mainCake);
-
-        // 3. Glazed Cherry topping on center of the cake
-        const cherryGroup = new THREE.Group();
-        const cherryGeo = new THREE.SphereGeometry(0.14, 12, 12);
-        const cherry = new THREE.Mesh(cherryGeo, cherryMaterial);
-        cherry.position.set(0, 0.35 + 0.08, 0); // Sitting on top of the tier at center
-        cherryGroup.add(cherry);
-
-        // Curving cherry stem
-        const stemCurve = new THREE.QuadraticBezierCurve3(
-            new THREE.Vector3(0, 0.35 + 0.22, 0),
-            new THREE.Vector3(0.12, 0.6, 0),
-            new THREE.Vector3(0.04, 0.7, -0.06)
-        );
-        const stemPoints = stemCurve.getPoints(8);
-        const stemGeo = new THREE.BufferGeometry().setFromPoints(stemPoints);
-        const stemMaterialLine = new THREE.LineBasicMaterial({ color: 0x4d372c, linewidth: 2 });
-        const stem = new THREE.Line(stemGeo, stemMaterialLine);
-        cherryGroup.add(stem);
-
-        // Position cherry exactly at the center of the top surface
-        cherryGroup.position.set(0, 0, 0);
-        cakeGroup.add(cherryGroup);
-
-
-
-        // 6. Floating Sugar Sparkles (Orbiting particle system)
-        const particleCount = 50;
-        const particlesGeo = new THREE.BufferGeometry();
-        const positions = new Float32Array(particleCount * 3);
-
-        for (let i = 0; i < particleCount; i++) {
-            const angle = Math.random() * Math.PI * 2;
-            const radius = 1.6 + Math.random() * 0.8;
-            const y = -0.4 + Math.random() * 1.8;
-            
-            positions[i * 3] = Math.cos(angle) * radius;
-            positions[i * 3 + 1] = y;
-            positions[i * 3 + 2] = Math.sin(angle) * radius;
-        }
-        particlesGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-        const particles = new THREE.Points(particlesGeo, particleMaterial);
-        cakeGroup.add(particles);
-
-        scene.add(cakeGroup);
-
-        // Interactive mouse-tilt tracking
-        let mouseX = 0;
-        let mouseY = 0;
-        let targetX = 0;
-        let targetY = 0;
-
-        window.addEventListener('mousemove', (event) => {
-            mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-            mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
-        });
-
-        const clock = new THREE.Clock();
-        const animate = () => {
-            requestAnimationFrame(animate);
-            const time = clock.getElapsedTime();
-
-            // Smooth interpolation (lerping) for mouse follow
-            targetX += (mouseX - targetX) * 0.05;
-            targetY += (mouseY - targetY) * 0.05;
-
-            // Slow idle spin & tilt
-            cakeGroup.rotation.y = time * 0.15;
-            cakeGroup.position.y = Math.sin(time * 0.7) * 0.08;
-            
-            // Apply mouse tilt forces
-            cakeGroup.rotation.x = Math.sin(time * 0.35) * 0.04 - targetY * 0.18;
-            cakeGroup.rotation.z = Math.cos(time * 0.35) * 0.04 + targetX * 0.18;
-
-            // Spin sparkles in opposite direction
-            particles.rotation.y = -time * 0.08;
-
-            renderer.render(scene, camera);
-        };
-        animate();
-
-        window.addEventListener('resize', () => {
-            camera.aspect = container.clientWidth / container.clientHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(container.clientWidth, container.clientHeight);
-        });
-    };
-    initWireframeCake();
-
+    if (typeof window !== "undefined") {
+        window.FEATURED_FILES = FEATURED_FILES.slice();
+        window.getCakeNote = getCakeNote;
+        window.renderFeatured = renderFeatured;
+        window.renderGallery = renderGallery;
+        window.openPostcard = openPostcard;
+        window.closePostcard = closePostcard;
+        window.updateFilterStatus = updateFilterStatus;
+        window.setActiveFilter = setActiveFilter;
+    }
 });
