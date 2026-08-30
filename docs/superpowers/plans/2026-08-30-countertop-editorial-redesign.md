@@ -282,7 +282,7 @@ git commit -m "Add accessible bakery navigation and dialog behavior"
 ```bash
 node --check script.js
 node -e "const fs=require('fs'); const items=JSON.parse(fs.readFileSync('cakes.json')); if(items.length!==104) throw new Error('catalog count mismatch'); for(const item of items){if(!fs.existsSync('images/'+item.fileName)) throw new Error('missing '+item.fileName)} console.log('catalog assets verified:', items.length)"
-git diff --check HEAD~4..HEAD
+git diff --check "$(git merge-base main HEAD)..HEAD"
 ```
 
 Record the actual output; do not report a pass without it.
