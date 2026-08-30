@@ -856,7 +856,6 @@ document.addEventListener('DOMContentLoaded', () => {
             .filter(([, note]) => Boolean(note))
     );
 
-    const featuredGrid = document.getElementById("featured-grid");
     const galleryContainer = document.getElementById("gallery-container");
     const galleryCount = document.getElementById("gallery-count");
     const filterStatus = document.getElementById("filter-status");
@@ -868,6 +867,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const postcardCategory = document.getElementById("postcard-category");
     const filterButtons = Array.from(document.querySelectorAll(".filter-btn"));
     const allFilterButton = filterButtons.find((button) => button.dataset.category === "all");
+    let previousBodyOverflow = null;
 
     const defaultCakeNote = {
         title: "Signature Bakery Delight",
@@ -883,15 +883,16 @@ document.addEventListener('DOMContentLoaded', () => {
         return "images/" + encodeURIComponent(fileName);
     }
 
-    function replaceImageWithFallback(image, note, fileName, isFeatured) {
+    const warnedMissingAssets = new Set();
+
+    function replaceImageWithFallback(image, note, fileName) {
         if (image.dataset.fallbackApplied === "true") {
             return;
         }
 
         image.dataset.fallbackApplied = "true";
-        if (isFeatured) {
-            console.warn("[gallery] missing featured asset", fileName);
-        } else {
+        if (!warnedMissingAssets.has(fileName)) {
+            warnedMissingAssets.add(fileName);
             console.warn("[gallery] missing asset", fileName);
         }
 
@@ -903,7 +904,7 @@ document.addEventListener('DOMContentLoaded', () => {
         image.replaceWith(fallback);
     }
 
-    function createCardMedia(fileName, note, loading, isFeatured) {
+    function createCardMedia(fileName, note, loading) {
         const media = document.createElement("div");
         media.className = "card-media";
 
@@ -916,7 +917,7 @@ document.addEventListener('DOMContentLoaded', () => {
         image.alt = note.title;
         image.decoding = "async";
         image.onerror = () => {
-            replaceImageWithFallback(image, note, fileName, isFeatured);
+            replaceImageWithFallback(image, note, fileName);
         };
 
         media.appendChild(image);
@@ -924,26 +925,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function attachCardInteraction(card, note, src) {
-        const open = (trigger) => openPostcard({ trigger, note, src });
+        const action = card.querySelector(".card-action");
+        const defaultTrigger = action || card;
+        const open = (trigger = defaultTrigger) => openPostcard({ trigger, note, src });
 
         card.addEventListener("click", (event) => {
             const target = event.target;
             if (target && typeof target.closest === "function" && target.closest(".card-action")) {
                 return;
             }
-            open(card);
+            open();
         });
 
         card.addEventListener("keydown", (event) => {
             if (event.key !== "Enter" && event.key !== " ") {
                 return;
             }
+            if (event.target && typeof event.target.closest === "function" && event.target.closest(".card-action")) {
+                return;
+            }
 
             event.preventDefault();
-            open(card);
+            open();
         });
 
-        const action = card.querySelector(".card-action");
         if (action) {
             action.addEventListener("click", (event) => {
                 event.stopPropagation();
@@ -954,9 +959,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function createCatalogCard(fileName, options = {}) {
         const note = getCakeNote(fileName);
-        const isFeatured = options.isFeatured === true;
         const card = document.createElement("article");
-        card.className = isFeatured ? "featured-card" : "gallery-card";
+        card.className = "gallery-card";
         card.dataset.fileName = fileName;
         card.dataset.category = note.category;
         card.tabIndex = 0;
@@ -965,8 +969,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const media = createCardMedia(
             fileName,
             note,
-            options.loading || "lazy",
-            isFeatured
+            options.loading || "lazy"
         );
         card.appendChild(media);
 
@@ -991,38 +994,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         attachCardInteraction(card, note, getImageSource(fileName));
         return card;
-    }
-
-    const FEATURED_FILES = [
-        'romantic-red-roses-love-anniversary-cake.webp',
-        'classic-oreo-chocolate-cake-bowl.webp',
-        'nutty-butter-cookies.webp',
-        'pink-purple-floral-butterfly-cake.webp'
-    ];
-
-    function renderFeatured() {
-        if (!featuredGrid) {
-            return 0;
-        }
-
-        featuredGrid.innerHTML = "";
-        let renderedCount = 0;
-
-        FEATURED_FILES.forEach((fileName, index) => {
-            const note = cakeCatalogByFile[fileName];
-            if (!note) {
-                console.warn("[gallery] missing featured asset", fileName);
-                return;
-            }
-
-            featuredGrid.appendChild(createCatalogCard(fileName, {
-                isFeatured: true,
-                loading: index === 0 ? "eager" : "lazy"
-            }));
-            renderedCount += 1;
-        });
-
-        return renderedCount;
     }
 
     function updateFilterStatus(category, count) {
@@ -1095,8 +1066,7 @@ document.addEventListener('DOMContentLoaded', () => {
             galleryContainer.innerHTML = "";
             matchingImages.forEach((fileName) => {
                 galleryContainer.appendChild(createCatalogCard(fileName, {
-                    loading: "lazy",
-                    isFeatured: false
+                    loading: "lazy"
                 }));
             });
 
@@ -1122,10 +1092,73 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape" && modal && modal.getAttribute("aria-hidden") === "false") {
+        if (!modal || modal.getAttribute("aria-hidden") !== "false") {
+            return;
+        }
+
+        if (event.key === "Escape") {
+            event.preventDefault();
             closePostcard();
+            return;
+        }
+
+        if (event.key !== "Tab") {
+            return;
+        }
+
+        const focusable = getModalFocusableElements();
+        if (focusable.length === 0) {
+            event.preventDefault();
+            if (closeModalBtn) {
+                closeModalBtn.focus();
+            }
+            return;
+        }
+
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (event.shiftKey && (document.activeElement === first || !modal.contains(document.activeElement))) {
+            event.preventDefault();
+            last.focus();
+        } else if (!event.shiftKey && (document.activeElement === last || !modal.contains(document.activeElement))) {
+            event.preventDefault();
+            first.focus();
         }
     });
+
+    function getModalFocusableElements() {
+        if (!modal) {
+            return [];
+        }
+
+        const selector = [
+            "button:not([disabled])",
+            "[href]",
+            "input:not([disabled])",
+            "select:not([disabled])",
+            "textarea:not([disabled])",
+            "[tabindex]:not([tabindex=\"-1\"]):not([disabled])"
+        ].join(",");
+
+        return Array.from(modal.querySelectorAll(selector)).filter((element) => {
+            return !element.hidden && element.getAttribute("aria-hidden") !== "true";
+        });
+    }
+
+    function setModalInert(isInert) {
+        if (!modal) {
+            return;
+        }
+
+        if ("inert" in modal) {
+            modal.inert = isInert;
+        }
+        if (isInert) {
+            modal.setAttribute("inert", "");
+        } else {
+            modal.removeAttribute("inert");
+        }
+    }
 
     function openPostcard({ trigger = null, note = defaultCakeNote, src = "" } = {}) {
         if (!modal) {
@@ -1148,10 +1181,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         modal.__trigger = trigger;
+        modal.hidden = false;
+        setModalInert(false);
         modal.classList.add("open");
         modal.setAttribute("aria-hidden", "false");
+        if (previousBodyOverflow === null) {
+            previousBodyOverflow = document.body.style.overflow;
+        }
         document.body.classList.add("modal-open");
         document.body.style.overflow = "hidden";
+        if (closeModalBtn) {
+            closeModalBtn.focus();
+        }
     }
 
     function closePostcard() {
@@ -1159,10 +1200,20 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        const trigger = modal.__trigger;
+        modal.__trigger = null;
         modal.classList.remove("open");
         modal.setAttribute("aria-hidden", "true");
+        setModalInert(true);
+        modal.hidden = true;
         document.body.classList.remove("modal-open");
-        document.body.style.overflow = "";
+        if (previousBodyOverflow !== null) {
+            document.body.style.overflow = previousBodyOverflow;
+            previousBodyOverflow = null;
+        }
+        if (trigger && typeof trigger.focus === "function" && trigger.isConnected !== false) {
+            trigger.focus();
+        }
     }
 
     filterButtons.forEach((button) => {
@@ -1179,7 +1230,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const show = (element) => element.classList.add("is-visible");
-        if (typeof window.IntersectionObserver !== "function") {
+        const reducedMotion = typeof window.matchMedia === "function"
+            && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (reducedMotion || typeof window.IntersectionObserver !== "function") {
             revealItems.forEach(show);
             return;
         }
@@ -1196,14 +1249,12 @@ document.addEventListener('DOMContentLoaded', () => {
         revealItems.forEach((element) => observer.observe(element));
     }
 
-    renderFeatured();
+    closePostcard();
     renderGallery("all");
     initializeReveal();
 
     if (typeof window !== "undefined") {
-        window.FEATURED_FILES = FEATURED_FILES.slice();
         window.getCakeNote = getCakeNote;
-        window.renderFeatured = renderFeatured;
         window.renderGallery = renderGallery;
         window.openPostcard = openPostcard;
         window.closePostcard = closePostcard;
