@@ -558,8 +558,8 @@ document.addEventListener('DOMContentLoaded', () => {
     "fileName": "pink-pearl-birthday-cake.webp"
   },
   {
-    "title": "Pink Cartoon Character Cake",
-    "description": "A bright pink character cake decorated with playful figures, colorful lettering, and a beaded border.",
+    "title": "Nani Goddess Celebration Cake",
+    "description": "A pink celebration cake honoring Nani with a detailed goddess design, silver pearls, and a heartfelt message.",
     "category": "Birthday",
     "fileName": "pink-cartoon-character-cake.webp"
   },
@@ -809,7 +809,7 @@ document.addEventListener('DOMContentLoaded', () => {
   "mango-dessert-cups.webp": "Mango Dessert Cups",
   "blue-duck-birthday-cake.webp": "Blue Duck Birthday Cake",
   "pink-pearl-birthday-cake.webp": "Pink Pearl Birthday Cake",
-  "pink-cartoon-character-cake.webp": "Pink Cartoon Character Cake",
+  "pink-cartoon-character-cake.webp": "Nani Goddess Celebration Cake",
   "chocolate-dessert-tray.webp": "Chocolate Dessert Tray",
   "assorted-dessert-bowl-set.webp": "Assorted Dessert Bowl Set",
   "welcome-baby-teddy-cake.webp": "Welcome Baby Teddy Cake",
