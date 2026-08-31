@@ -787,7 +787,8 @@ footer {
   gap: .7rem;
 }
 
-.contact-link {
+.contact-link,
+.reviews-link {
   display: flex;
   min-height: 4.5rem;
   flex-direction: column;
@@ -801,19 +802,22 @@ footer {
   text-decoration: none;
 }
 
-.contact-link:hover {
+.contact-link:hover,
+.reviews-link:hover {
   color: var(--ink);
   background: var(--brand-coral);
   border-color: var(--brand-coral);
   transform: translateY(-2px);
 }
 
-.contact-link .contact-label {
+.contact-link .contact-label,
+.reviews-link .contact-label {
   color: var(--accent-text);
   font-size: .62rem;
 }
 
-.contact-link > span:last-child {
+.contact-link > span:last-child,
+.reviews-link > span:last-child {
   font-size: .86rem;
   font-weight: 700;
   line-height: 1.25;
@@ -1284,7 +1288,8 @@ footer {
     gap: .15rem;
   }
 
-  .contact-link {
+  .contact-link,
+  .reviews-link {
     min-height: 4rem;
   }
 
@@ -1321,7 +1326,7 @@ footer {
     border-color: var(--brand-blue) !important;
   }
 
-  .order-dock-personal {
+  .order-dock-reviews {
     color: var(--ink);
     background: var(--brand-coral);
     border-color: var(--brand-coral) !important;
@@ -1435,7 +1440,8 @@ footer {
   }
 
   .media-fallback,
-  .contact-link {
+  .contact-link,
+  .reviews-link {
     background: var(--surface-raised);
   }
 
@@ -1445,7 +1451,8 @@ footer {
     border-color: var(--inverse-line);
   }
 
-  .contact-link {
+  .contact-link,
+  .reviews-link {
     color: var(--interactive);
     border-color: var(--inverse-line);
   }
