@@ -39,7 +39,7 @@ def analyze_locally(filename):
     Return ONLY a JSON object with:
     'title': A catchy name.
     'description': An appetizing 1-sentence blurb.
-    'category': One of [Birthday, Anniversary, Festive, Specialty, Cake Bowls].
+    'category': One of [Birthday, Anniversary, Festive, Specialty, Cake Bowls, Cookies].
     'slug': A lowercase-kebab-case filename based on the title (e.g. 'blue-floral-cake').
     """
     

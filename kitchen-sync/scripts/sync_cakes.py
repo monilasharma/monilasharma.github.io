@@ -41,7 +41,7 @@ def analyze_and_rename(new_files):
     1. A descriptive, SEO-friendly filename (e.g., 'blue-floral-cake.jpg'). Ignore personal names.
     2. A catchy title.
     3. An appetizing description.
-    4. A category (Birthday, Anniversary, Festive, Specialty).
+    4. A category (Birthday, Anniversary, Festive, Specialty, Cake Bowls, Cookies).
     
     Return the result as a JSON array of objects with keys: 'oldFileName', 'newFileName', 'title', 'description', 'category'.
     Return ONLY the JSON array.

@@ -4,156 +4,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#FDFAF3" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#101A2C" media="(prefers-color-scheme: dark)">
     <title>Pallav's Kitchen - Homemade Cakes & Cookies by Monila Sharma</title>
     <meta name="description" content="Welcome to Pallav's Kitchen. Delight in fresh, custom homemade cakes, cupcakes, cookies, and cake bowls baked with love by Monila Sharma.">
     <link rel="icon" type="image/png" href="images/logo.png">
-    
-    <!-- Cozy & Warm Google Fonts -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,400&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=DM+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-
-    <!-- Dynamic 3D Bakery Background -->
-    <div class="animated-bg" id="animated-bg"></div>
-
-    <nav class="navbar">
-        <div class="nav-content">
-            <a class="logo-wrap" href="#home" aria-label="Pallav's Kitchen home">
-                <img src="images/logo.png" alt="Pallav's Kitchen logo" class="brand-mark" width="48" height="48">
-                <div class="brand-text">
-                    <span class="logo">Pallav's Kitchen</span>
-                    <span class="logo-sub">Cakes & Cookies by Monila Sharma</span>
-                </div>
-            </a>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#gallery">Gallery</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+    <nav class="site-nav" id="site-nav" aria-label="Primary navigation">
+        <a class="brand-lockup" href="#home" aria-label="Pallav's Kitchen home">
+            <img src="images/logo.png" alt="Pallav's Kitchen logo" class="brand-mark" width="48" height="48">
+            <span class="brand-copy">
+                <span class="brand-name">Pallav's Kitchen</span>
+                <span class="brand-maker">Cakes &amp; Cookies by Monila Sharma</span>
+            </span>
+        </a>
+        <div class="nav-links">
+            <a href="#gallery">Gallery</a>
+            <a class="nav-order-link" href="#contact">Order on WhatsApp <span aria-hidden="true">↗</span></a>
         </div>
     </nav>
 
-    <header class="hero" id="home">
-        <div class="hero-container">
-            <div class="hero-content reveal">
-                <div class="hero-badge">
-                    <span class="badge-text">Fresh From The Oven</span>
-                </div>
-                <h1 class="script-title">Baked with love,</h1>
-                <h1 class="main-title">Crafted to perfection.</h1>
-                <p class="subtitle">Experience the magic of premium homemade cakes and delightful bakery bowls, handcrafted in our cozy kitchen to sweeten your celebrations.</p>
-                <div class="hero-actions">
-                    <a href="#gallery" class="cta-button">Browse Sweets</a>
-                    <a href="#contact" class="secondary-button">Order Now</a>
-                </div>
-            </div>
-            <div class="hero-graphic-wrap reveal">
-                <div class="hero-canvas-frame">
-                    <canvas id="wireframe-cake"></canvas>
-                    <div class="decor-cherry-top">🍒</div>
+    <main>
+        <header class="hero" id="home" aria-labelledby="hero-heading">
+            <div class="hero-copy reveal">
+                <p class="eyebrow">PALLAV'S KITCHEN / HOME-BAKED</p>
+                <h1 id="hero-heading" aria-label="Cakes made for your moments.">
+                    <span class="hero-line" aria-hidden="true">Cakes made</span>
+                    <span class="hero-line" aria-hidden="true">for your</span>
+                    <span class="hero-line" aria-hidden="true">moments.</span>
+                </h1>
+                <p class="hero-lede">Monila Sharma makes cakes, cookies, and cake bowls to order for your celebration.</p>
+                <div class="hero-actions" aria-label="Order or review Monila's creations">
+                    <a class="hero-primary" href="https://chat.whatsapp.com/Hf6RhlO98f93zcG5ide3Bo?s=cl&p=a&mlu=4" target="_blank" rel="noopener noreferrer" aria-label="Join the WhatsApp order group">Join the WhatsApp order group <span aria-hidden="true">↗</span></a>
+                    <a class="hero-secondary" href="https://www.instagram.com/monila.sharma?igsh=MTBkYTlxanBudWs2bw==" target="_blank" rel="noopener noreferrer" aria-label="See cake reviews on Instagram">See cake reviews on Instagram <span aria-hidden="true">↗</span></a>
                 </div>
             </div>
-        </div>
-        <div class="wave-divider">
-            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,42.4V0Z" class="shape-fill"></path>
-            </svg>
-        </div>
-    </header>
 
-    <section class="gallery-section" id="gallery">
-        <div class="section-title reveal">
-            <h2>Our Sweet Creations</h2>
-            <div class="title-decor">🍪 🎂 🧁</div>
-            <p>Take a peek at our fresh home-baked creations. Each one is customizable and baked to order!</p>
-        </div>
-        
-        <div class="gallery-filters reveal">
-            <button class="filter-btn active" data-category="all">✨ All Delights</button>
-            <button class="filter-btn" data-category="Birthday">🎈 Birthday</button>
-            <button class="filter-btn" data-category="Anniversary">💖 Anniversary</button>
-            <button class="filter-btn" data-category="Festive">🎉 Festive</button>
-            <button class="filter-btn" data-category="Specialty">⭐ Specialty</button>
-            <button class="filter-btn" data-category="Cake Bowls">🥣 Cake Bowls</button>
-        </div>
+            <div class="hero-feature reveal" aria-label="Featured creation" tabindex="0">
+                <figure class="hero-feature-figure">
+                    <img class="hero-feature-layer hero-feature-layer-a is-active" src="images/romantic-red-roses-love-anniversary-cake.webp" alt="Romantic red roses anniversary cake" width="1078" height="1078" loading="eager" decoding="async">
+                    <img class="hero-feature-layer hero-feature-layer-b" alt="" width="1078" height="1078" loading="eager" decoding="async" aria-hidden="true">
+                    <figcaption class="hero-feature-caption" aria-live="polite" aria-atomic="true">
+                        <span class="hero-feature-caption-title" data-hero-caption-title>Romantic red roses cake</span>
+                        <span class="hero-feature-caption-meta" data-hero-caption-meta>Anniversary / made to order</span>
+                    </figcaption>
+                </figure>
+            </div>
+        </header>
 
-        <div class="gallery-grid" id="gallery-container">
-            <!-- Polaroid cards injected here by script.js -->
-        </div>
-    </section>
+        <section class="catalog-section" id="gallery" aria-labelledby="gallery-heading">
+            <div class="catalog-heading">
+                <div>
+                    <p class="eyebrow">THE CATALOG</p>
+                    <h2 id="gallery-heading">Browse the creations.</h2>
+                </div>
+                <p class="gallery-count" aria-live="polite"><span id="gallery-count">104 creations</span></p>
+            </div>
+            <div class="gallery-filters" role="group" aria-label="Filter creations">
+                <button class="filter-btn active is-active" type="button" data-category="all" aria-pressed="true">All</button>
+                <button class="filter-btn" type="button" data-category="Birthday" aria-pressed="false">Birthday</button>
+                <button class="filter-btn" type="button" data-category="Anniversary" aria-pressed="false">Anniversary</button>
+                <button class="filter-btn" type="button" data-category="Festive" aria-pressed="false">Festive</button>
+                <button class="filter-btn" type="button" data-category="Specialty" aria-pressed="false">Specialty</button>
+                <button class="filter-btn" type="button" data-category="Cake Bowls" aria-pressed="false">Cake Bowls</button>
+                <button class="filter-btn" type="button" data-category="Cookies" aria-pressed="false">Cookies</button>
+                <button class="filter-btn" type="button" data-category="Kids" aria-pressed="false">Kids</button>
+            </div>
+            <p id="filter-status" class="sr-only" aria-live="polite">Showing all 104 creations.</p>
+            <div class="gallery-grid" id="gallery-container"></div>
+        </section>
+    </main>
 
-    <!-- Postcard Detail Modal -->
-    <div class="postcard-modal" id="postcard-modal" aria-hidden="true" role="dialog" aria-labelledby="postcard-title">
+    <footer id="contact" aria-labelledby="contact-heading">
+        <div class="footer-content">
+            <div class="footer-intro">
+                <img src="images/logo.png" alt="Pallav's Kitchen logo" class="footer-mark" width="72" height="72">
+                <div>
+                    <p class="eyebrow">ORDER WITH MONILA</p>
+                    <h2 id="contact-heading">Ready to order?</h2>
+                </div>
+            </div>
+            <div class="footer-links" aria-label="Contact options">
+                <a class="contact-link phone-link" href="tel:+918796312333">
+                    <span class="contact-label">Phone</span>
+                    <span>+91 87963 12333</span>
+                </a>
+                <a class="contact-link group-link" href="https://chat.whatsapp.com/Hf6RhlO98f93zcG5ide3Bo?s=cl&p=a&mlu=4" target="_blank" rel="noopener noreferrer">
+                    <span class="contact-label">WhatsApp group</span>
+                    <span>Join the order group <span aria-hidden="true">↗</span></span>
+                </a>
+                <a class="reviews-link" href="https://youtube.com/@monila.sharma?si=8G37xtu4zeWlyZr_" target="_blank" rel="noopener noreferrer">
+                    <span class="contact-label">Cake reviews</span>
+                    <span>Watch cake reviews on YouTube <span aria-hidden="true">↗</span></span>
+                </a>
+            </div>
+            <div class="social-links" aria-label="Follow Pallav's Kitchen">
+                <p class="social-links-label">FOLLOW ALONG</p>
+                <div class="social-links-list">
+                    <a href="https://www.instagram.com/monila.sharma?igsh=MTBkYTlxanBudWs2bw==" target="_blank" rel="noopener noreferrer">Instagram <span aria-hidden="true">↗</span></a>
+                    <a href="https://youtube.com/@monila.sharma?si=8G37xtu4zeWlyZr_" target="_blank" rel="noopener noreferrer">YouTube <span aria-hidden="true">↗</span></a>
+                    <a href="https://share.google/55R0zfP5cglQnEfVk" target="_blank" rel="noopener noreferrer">Google Business Profile <span aria-hidden="true">↗</span></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="order-dock" id="order-dock" aria-label="Order and review actions">
+        <a class="order-dock-group" href="https://chat.whatsapp.com/Hf6RhlO98f93zcG5ide3Bo?s=cl&p=a&mlu=4" target="_blank" rel="noopener noreferrer">Join the WhatsApp order group <span aria-hidden="true">↗</span></a>
+        <a class="order-dock-reviews" href="https://youtube.com/@monila.sharma?si=8G37xtu4zeWlyZr_" target="_blank" rel="noopener noreferrer">Watch cake reviews on YouTube <span aria-hidden="true">↗</span></a>
+    </div>
+
+    <div class="postcard-modal" id="postcard-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="postcard-title" aria-describedby="postcard-description">
         <div class="postcard-shell" role="document">
-            <button class="modal-close" id="modal-close" aria-label="Close postcard">Close ✕</button>
-            <div class="postcard-copy">
-                <p class="postcard-kicker">🍰 Fresh Recipe Note</p>
-                <h3 id="postcard-title">Freshly Baked Delight</h3>
-                <div class="postcard-divider"></div>
-                <p id="postcard-description">A bakery note about this cake will appear here.</p>
-                <div class="postcard-meta-wrap">
-                    <div class="postcard-meta">
-                        <span id="postcard-category">Custom Cake</span>
-                        <span>100% Homemade</span>
-                    </div>
-                    <div class="postcard-stamp">
-                        <div class="stamp-circle">Made with Love</div>
-                    </div>
-                </div>
-            </div>
+            <button class="modal-close" id="modal-close" type="button" aria-label="Close postcard">Close <span aria-hidden="true">×</span></button>
             <div class="postcard-photo-wrap">
-                <img id="postcard-image" src="" alt="Selected cake from Pallav's Kitchen">
+                <img id="postcard-image" src="" alt="">
+            </div>
+            <div class="postcard-copy">
+                <p class="postcard-kicker">CREATION DETAILS</p>
+                <h2 id="postcard-title"></h2>
+                <p id="postcard-description"></p>
+                <p class="postcard-category" id="postcard-category"></p>
+                <a id="postcard-order-link" class="postcard-order" href="https://wa.me/918796312333" target="_blank" rel="noopener noreferrer" data-order-number="918796312333">Ask about this creation <span aria-hidden="true">↗</span></a>
             </div>
         </div>
     </div>
 
-    <footer id="contact">
-        <div class="footer-wave">
-            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,42.4V0Z" class="shape-fill"></path>
-            </svg>
-        </div>
-        <div class="footer-content">
-            <img src="images/logo.png" alt="Pallav's Kitchen Logo" class="footer-mark" width="96" height="96">
-            <h3 class="logo-footer">Pallav's Kitchen</h3>
-            <p class="footer-tagline">Handcrafted with passion in our cozy kitchen, enjoyed in yours.</p>
-            
-            <div class="footer-contact-row">
-                <a href="tel:+918796312333" class="contact-pill phone-pill">
-                    <span>📞 Call Us: +91 87963 12333</span>
-                </a>
-                <a href="https://wa.me/918796312333" target="_blank" rel="noopener" class="contact-pill whatsapp-pill">
-                    <span>💬 Chat on WhatsApp</span>
-                </a>
-            </div>
-
-            <div class="contact-form-wrap" aria-label="Contact form">
-                <div class="form-header">
-                    <h4>🍰 Bakery Order & Enquiry Form</h4>
-                    <p class="contact-form-note">Let us know what you'd like to order, and we'll bake it fresh for you!</p>
-                </div>
-                <iframe
-                    title="Pallav's Kitchen contact form"
-                    src="https://docs.google.com/forms/d/e/1FAIpQLSeTq1AsEnwVHaENFXxSXrYbEAFVLC57FIohpxPKb1Oc2Am6pg/viewform?embedded=true"
-                    loading="lazy">
-                    Loading form...
-                </iframe>
-                <p class="contact-form-link-row">
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeTq1AsEnwVHaENFXxSXrYbEAFVLC57FIohpxPKb1Oc2Am6pg/viewform" target="_blank" rel="noopener noreferrer">Open form in a new tab ↗</a>
-                </p>
-            </div>
-            <p class="copyright">&copy; 2026 Pallav's Kitchen. Created with love & passion.</p>
-        </div>
-    </footer>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="script.js"></script>
 </body>
 
 </html>
-
