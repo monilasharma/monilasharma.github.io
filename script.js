@@ -866,6 +866,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const postcardDescription = document.getElementById("postcard-description");
     const postcardCategory = document.getElementById("postcard-category");
     const postcardOrderLink = document.getElementById("postcard-order-link");
+    const heroFeature = document.querySelector(".hero-feature");
+    const heroFeatureLayers = [
+        document.querySelector(".hero-feature-layer-a"),
+        document.querySelector(".hero-feature-layer-b")
+    ].filter(Boolean);
+    const heroFeatureCaption = heroFeature
+        ? heroFeature.querySelector(".hero-feature-caption")
+        : null;
+    const heroCaptionTitle = heroFeature
+        ? heroFeature.querySelector("[data-hero-caption-title]")
+        : null;
+    const heroCaptionMeta = heroFeature
+        ? heroFeature.querySelector("[data-hero-caption-meta]")
+        : null;
     const filterButtons = Array.from(document.querySelectorAll(".filter-btn"));
     const allFilterButton = filterButtons.find((button) => button.dataset.category === "all");
     let previousBodyOverflow = null;
@@ -882,6 +896,252 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function getImageSource(fileName) {
         return "images/" + encodeURIComponent(fileName);
+    }
+
+    function initializeHeroRotation() {
+        if (!heroFeature || heroFeatureLayers.length < 2 || typeof window === "undefined") {
+            return;
+        }
+
+        const heroEntries = images
+            .map((fileName) => ({
+                fileName,
+                src: getImageSource(fileName),
+                note: getCakeNote(fileName)
+            }))
+            .filter((entry) => Boolean(entry.note));
+        if (heroEntries.length < 2) {
+            return;
+        }
+
+        const reducedMotionQuery = typeof window.matchMedia === "function"
+            ? window.matchMedia("(prefers-reduced-motion: reduce)")
+            : null;
+        const initialFileName = "romantic-red-roses-love-anniversary-cake.webp";
+        const state = {
+            activeLayerIndex: 0,
+            currentFileName: initialFileName,
+            failedFiles: new Set(),
+            warnedMissingFiles: new Set(),
+            timerId: null,
+            switching: false,
+            hovering: false,
+            focused: false,
+            hidden: document.visibilityState === "hidden",
+            blurred: false,
+            reducedMotion: Boolean(reducedMotionQuery && reducedMotionQuery.matches)
+        };
+        const minDelay = 4000;
+        const maxDelay = 5000;
+
+        heroFeatureLayers[0].dataset.heroFileName = initialFileName;
+        heroFeature.setAttribute(
+            "aria-label",
+            "Featured creation: " + getCakeNote(initialFileName).title
+        );
+        heroFeatureLayers[0].classList.add("is-active");
+        heroFeatureLayers[0].removeAttribute("aria-hidden");
+        heroFeatureLayers[1].classList.remove("is-active");
+        heroFeatureLayers[1].setAttribute("aria-hidden", "true");
+
+        const clearRotationTimer = () => {
+            if (state.timerId !== null) {
+                window.clearTimeout(state.timerId);
+                state.timerId = null;
+            }
+        };
+
+        const isPaused = () => {
+            return state.reducedMotion
+                || state.hidden
+                || state.hovering
+                || state.focused
+                || state.blurred;
+        };
+
+        const scheduleRotation = () => {
+            clearRotationTimer();
+            if (isPaused() || state.switching) {
+                return;
+            }
+
+            const delay = minDelay + Math.floor(Math.random() * (maxDelay - minDelay + 1));
+            state.timerId = window.setTimeout(() => {
+                state.timerId = null;
+                rotateHeroFeature();
+            }, delay);
+        };
+
+        const chooseNextEntry = () => {
+            const candidates = heroEntries.filter((entry) => {
+                return entry.fileName !== state.currentFileName
+                    && !state.failedFiles.has(entry.fileName);
+            });
+            if (candidates.length === 0) {
+                return null;
+            }
+            return candidates[Math.floor(Math.random() * candidates.length)];
+        };
+
+        const preloadHeroImage = (entry) => {
+            return new Promise((resolve) => {
+                if (!entry || typeof window.Image !== "function") {
+                    resolve(false);
+                    return;
+                }
+
+                const image = new window.Image();
+                let settled = false;
+                let timeoutId = null;
+                const finish = (loaded) => {
+                    if (settled) {
+                        return;
+                    }
+                    settled = true;
+                    if (timeoutId !== null) {
+                        window.clearTimeout(timeoutId);
+                    }
+                    resolve(loaded);
+                };
+
+                image.onload = () => finish(true);
+                image.onerror = () => finish(false);
+                image.decoding = "async";
+                image.src = entry.src;
+                timeoutId = window.setTimeout(() => finish(false), 15000);
+            });
+        };
+
+        const updateCaption = (entry) => {
+            if (!heroFeatureCaption || (!heroCaptionTitle && !heroCaptionMeta)) {
+                return;
+            }
+
+            heroFeatureCaption.classList.add("is-changing");
+            const commit = () => {
+                if (heroCaptionTitle) {
+                    heroCaptionTitle.textContent = entry.note.title;
+                }
+                if (heroCaptionMeta) {
+                    heroCaptionMeta.textContent = entry.note.category + " / made to order";
+                }
+                heroFeatureCaption.classList.remove("is-changing");
+            };
+
+            if (typeof window.requestAnimationFrame === "function") {
+                window.requestAnimationFrame(commit);
+            } else {
+                commit();
+            }
+        };
+
+        const applyHeroEntry = (entry) => {
+            const nextLayerIndex = state.activeLayerIndex === 0 ? 1 : 0;
+            const nextLayer = heroFeatureLayers[nextLayerIndex];
+            const currentLayer = heroFeatureLayers[state.activeLayerIndex];
+            nextLayer.dataset.heroFileName = entry.fileName;
+            nextLayer.src = entry.src;
+            nextLayer.alt = entry.note.title;
+            nextLayer.removeAttribute("aria-hidden");
+            nextLayer.classList.add("is-active");
+            currentLayer.classList.remove("is-active");
+            currentLayer.setAttribute("aria-hidden", "true");
+            currentLayer.alt = "";
+            state.activeLayerIndex = nextLayerIndex;
+            state.currentFileName = entry.fileName;
+            heroFeature.setAttribute(
+                "aria-label",
+                "Featured creation: " + entry.note.title
+            );
+            updateCaption(entry);
+        };
+
+        async function rotateHeroFeature() {
+            if (isPaused() || state.switching) {
+                scheduleRotation();
+                return;
+            }
+
+            const nextEntry = chooseNextEntry();
+            if (!nextEntry) {
+                return;
+            }
+
+            state.switching = true;
+            const loaded = await preloadHeroImage(nextEntry);
+            state.switching = false;
+            if (!loaded) {
+                state.failedFiles.add(nextEntry.fileName);
+                if (!state.warnedMissingFiles.has(nextEntry.fileName)) {
+                    state.warnedMissingFiles.add(nextEntry.fileName);
+                    console.warn("[hero] missing asset", nextEntry.fileName);
+                }
+                scheduleRotation();
+                return;
+            }
+            if (isPaused()) {
+                scheduleRotation();
+                return;
+            }
+
+            applyHeroEntry(nextEntry);
+            scheduleRotation();
+        }
+
+        heroFeature.addEventListener("mouseenter", () => {
+            state.hovering = true;
+            clearRotationTimer();
+        });
+        heroFeature.addEventListener("mouseleave", () => {
+            state.hovering = false;
+            scheduleRotation();
+        });
+        heroFeature.addEventListener("focusin", () => {
+            state.focused = true;
+            clearRotationTimer();
+        });
+        heroFeature.addEventListener("focusout", (event) => {
+            if (!heroFeature.contains(event.relatedTarget)) {
+                state.focused = false;
+                scheduleRotation();
+            }
+        });
+        document.addEventListener("visibilitychange", () => {
+            state.hidden = document.visibilityState === "hidden";
+            if (state.hidden) {
+                clearRotationTimer();
+            } else {
+                scheduleRotation();
+            }
+        });
+        window.addEventListener("blur", () => {
+            state.blurred = true;
+            clearRotationTimer();
+        });
+        window.addEventListener("focus", () => {
+            state.blurred = false;
+            scheduleRotation();
+        });
+
+        const handleReducedMotionChange = (event) => {
+            state.reducedMotion = event.matches;
+            if (state.reducedMotion) {
+                clearRotationTimer();
+            } else {
+                scheduleRotation();
+            }
+        };
+        if (reducedMotionQuery) {
+            if (typeof reducedMotionQuery.addEventListener === "function") {
+                reducedMotionQuery.addEventListener("change", handleReducedMotionChange);
+            } else if (typeof reducedMotionQuery.addListener === "function") {
+                reducedMotionQuery.addListener(handleReducedMotionChange);
+            }
+        }
+
+        if (!state.reducedMotion) {
+            scheduleRotation();
+        }
     }
 
     const warnedMissingAssets = new Set();
@@ -1303,6 +1563,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderGallery("all");
     initializeReveal();
     initializeScrollMotion();
+    initializeHeroRotation();
 
     if (typeof window !== "undefined") {
         window.getCakeNote = getCakeNote;

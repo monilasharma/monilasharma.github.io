@@ -445,17 +445,31 @@ footer {
   height: 100%;
 }
 
-.hero-feature img {
+.hero-feature-layer {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center 44%;
   filter: saturate(.92) contrast(1.03);
   transform: scale(1.035);
-  transition: transform 1.1s var(--ease-soft), filter .7s ease;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .8s ease, transform 1.1s var(--ease-soft), filter .7s ease, visibility 0s linear .8s;
 }
 
-.hero-feature:hover img {
+.hero-feature-layer.is-active {
+  z-index: 1;
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+.hero-feature:hover .hero-feature-layer.is-active,
+.hero-feature:focus-within .hero-feature-layer.is-active {
   filter: saturate(1) contrast(1.05);
   transform: scale(1.075);
 }
@@ -485,14 +499,20 @@ footer {
   font-weight: 700;
   letter-spacing: .14em;
   text-transform: uppercase;
+  transition: opacity .35s ease, transform .35s var(--ease-soft);
 }
 
-.hero-feature.reveal:not(.is-visible) img {
+.hero-feature-caption.is-changing {
+  opacity: 0;
+  transform: translateY(.35rem);
+}
+
+.hero-feature.reveal:not(.is-visible) .hero-feature-layer {
   opacity: 0;
   transform: scale(1.12);
 }
 
-.hero-feature.reveal.is-visible img {
+.hero-feature.reveal.is-visible .hero-feature-layer-a.is-active {
   animation: hero-feature-image-in 1.15s var(--ease-soft) both;
 }
 
@@ -797,6 +817,49 @@ footer {
   font-size: .86rem;
   font-weight: 700;
   line-height: 1.25;
+}
+
+.social-links {
+  display: grid;
+  grid-column: 1 / -1;
+  gap: .7rem;
+  margin-top: clamp(.5rem, 1vw, 1rem);
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--inverse-line);
+}
+
+.social-links-label {
+  color: var(--accent-on-contrast);
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.social-links-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem 1.5rem;
+}
+
+.social-links-list a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: .35rem;
+  color: var(--text-on-contrast);
+  border-bottom: 1px solid transparent;
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.social-links-list a:hover {
+  color: var(--accent-on-contrast);
+  border-color: var(--accent-on-contrast);
 }
 
 /* Order dock */
@@ -1211,6 +1274,16 @@ footer {
     grid-template-columns: 1fr;
   }
 
+  .social-links {
+    margin-top: .25rem;
+    padding-top: 1rem;
+  }
+
+  .social-links-list {
+    display: grid;
+    gap: .15rem;
+  }
+
   .contact-link {
     min-height: 4rem;
   }
@@ -1291,7 +1364,9 @@ footer {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
   .reveal { opacity: 1; transform: none; }
-  .hero-feature.reveal:not(.is-visible) img { opacity: 1; transform: none; }
+  .hero-feature.reveal:not(.is-visible) .hero-feature-layer { opacity: 1; transform: none; }
+  .hero-feature-layer { transition: none; }
+  .hero-feature-caption.is-changing { opacity: 1; transform: none; }
   .site-nav::after { transition: none; }
 }
 
