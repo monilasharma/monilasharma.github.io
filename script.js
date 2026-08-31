@@ -344,7 +344,7 @@ document.addEventListener('DOMContentLoaded', () => {
   {
     "title": "Nutty Butter Cookies",
     "description": "Golden round butter cookies generously finished with a crunchy sprinkle of roasted nuts.",
-    "category": "Specialty",
+    "category": "Cookies",
     "fileName": "nutty-butter-cookies.webp"
   },
   {
@@ -416,7 +416,7 @@ document.addEventListener('DOMContentLoaded', () => {
   {
     "title": "Colorful Fruit Sprinkle Cookies",
     "description": "Soft-baked cookies dotted with colorful fruit pieces and cheerful confetti sprinkles.",
-    "category": "Specialty",
+    "category": "Cookies",
     "fileName": "colorful-fruit-sprinkle-cookies.webp"
   },
   {
@@ -584,7 +584,7 @@ document.addEventListener('DOMContentLoaded', () => {
   {
     "title": "Classic Round Butter Cookies",
     "description": "Tender round butter cookies baked to a lightly golden finish for a simple, comforting treat.",
-    "category": "Specialty",
+    "category": "Cookies",
     "fileName": "classic-round-butter-cookies.webp"
   },
   {
